@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1366" height="1830.39" viewBox="0 0 1366 1830.39">
+  <defs>
+    <linearGradient id="a" x1="683" y1="122.01" x2="683" y2="1730.9" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#066686"/>
+      <stop offset="0.56" stop-color="#0b3d57"/>
+      <stop offset="1" stop-color="#101a30"/>
+    </linearGradient>
+  </defs>
+  <title>bg iml</title>
+  <rect width="1366" height="1830.39" fill="url(#a)"/>
+</svg>

@@ -1,0 +1,105 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{font-size:14px; font-family:ralewayregular;
+     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#353535+0,383838+16,404040+50,444444+66,4a4a4a+84,4c4c4c+100 */
+     /*background:rgba(6, 2, 131, 0.88);;  Old browsers */
+     /*background: -moz-linear-gradient(left,  #353535 0%, #383838 16%, #404040 50%, #444444 66%, #4a4a4a 84%, #4c4c4c 100%);  FF3.6-15 
+     background: -webkit-linear-gradient(left,  #353535 0%,#383838 16%,#404040 50%,#444444 66%,#4a4a4a 84%,#4c4c4c 100%);  Chrome10-25,Safari5.1-6 
+     background: linear-gradient(to right,  #353535 0%,#383838 16%,#404040 50%,#444444 66%,#4a4a4a 84%,#4c4c4c 100%);  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ 
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#353535', endColorstr='#4c4c4c',GradientType=1 );  IE6-9 */
+     background-image: url('../images/bg_iml.svg');
+    background-size:     cover;                    
+    background-repeat:   no-repeat;
+    background-position: center center;
+
+}
+
+.container{    margin-top: 60px;}
+.wrapper{width:100%; float:left; }
+.comment-text hr {
+    margin-top: 20px;border: 0;border-top: 1px solid #eee;margin-bottom: 1px;}
+.header{width:100%; float:left; min-height:50px; padding:10px;/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#93272d+0,be272d+15,b8272d+27,97272d+100 */
+        background : -moz-linear-gradient(0.01% -3.45% -2.46deg,rgba(4, 59, 84, 0.4) 0%,rgba(4, 59, 84, 0.6) 13%,rgba(4, 59, 84, 0.8) 33.05%,rgba(4, 59, 84, 1) 47.23%,rgba(4, 59, 84, 1) 54.94%,rgba(4, 59, 84, 0.8) 71.02%,rgba(4, 59, 84, 0.6) 86.35%,rgba(4, 59, 84, 0.4) 100%);
+        background : -webkit-linear-gradient(-2.46deg, rgba(4, 59, 84, 0.4) 0%, rgba(4, 59, 84, 0.6) 13%, rgba(4, 59, 84, 0.8) 33.05%, rgba(4, 59, 84, 1) 47.23%, rgba(4, 59, 84, 1) 54.94%, rgba(4, 59, 84, 0.8) 71.02%, rgba(4, 59, 84, 0.6) 86.35%, rgba(4, 59, 84, 0.4) 100%);
+        background : -webkit-gradient(linear,0.01% -3.45% ,99.49% 102.91% ,color-stop(0,rgba(4, 59, 84, 0.4) ),color-stop(0.13,rgba(4, 59, 84, 0.6) ),color-stop(0.3305,rgba(4, 59, 84, 0.8) ),color-stop(0.4723,rgba(4, 59, 84, 1) ),color-stop(0.5494,rgba(4, 59, 84, 1) ),color-stop(0.7102,rgba(4, 59, 84, 0.8) ),color-stop(0.8635,rgba(4, 59, 84, 0.6) ),color-stop(1,rgba(4, 59, 84, 0.4) ));
+        background : -o-linear-gradient(-2.46deg, rgba(4, 59, 84, 0.4) 0%, rgba(4, 59, 84, 0.6) 13%, rgba(4, 59, 84, 0.8) 33.05%, rgba(4, 59, 84, 1) 47.23%, rgba(4, 59, 84, 1) 54.94%, rgba(4, 59, 84, 0.8) 71.02%, rgba(4, 59, 84, 0.6) 86.35%, rgba(4, 59, 84, 0.4) 100%);
+        background : -ms-linear-gradient(-2.46deg, rgba(4, 59, 84, 0.4) 0%, rgba(4, 59, 84, 0.6) 13%, rgba(4, 59, 84, 0.8) 33.05%, rgba(4, 59, 84, 1) 47.23%, rgba(4, 59, 84, 1) 54.94%, rgba(4, 59, 84, 0.8) 71.02%, rgba(4, 59, 84, 0.6) 86.35%, rgba(4, 59, 84, 0.4) 100%);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#90272D', endColorstr='#8B272D' ,GradientType=0)";
+        background: linear-gradient(92.46deg, rgba(5, 43, 60, 0.4) 0%, rgba(5, 43, 60, 0.6) 13%, rgba(5, 43, 60, 0.8) 33.05%, rgb(5, 43, 60) 47.23%, rgba(5, 43, 60, 1) 54.94%, rgba(5, 43, 60, 0.8) 71.02%, rgba(5, 43, 60, .6) 86.35%, rgba(5, 43, 60, 0.4) 100%);
+        /*background: linear-gradient(92.46deg, rgba(4, 59, 84, 0.4) 0%, rgba(4, 59, 84, 0.6) 13%, rgba(4, 59, 84, 0.8) 33.05%, rgba(4, 59, 84, 1) 47.23%, rgba(4, 59, 84, 1) 54.94%, rgba(4, 59, 84, 0.8) 71.02%, rgba(4, 59, 84, .6) 86.35%, rgba(4, 59, 84, 0.4) 100%);*/
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#90272D',endColorstr='#8B272D' , GradientType=1);
+        /*height: 100px;
+        width: 100%;*/
+        /*background :linear-gradient(92.46deg, rgb(14, 15, 23) 0%, rgb(35, 35, 43) 13%, rgb(31, 39, 53) 33.05%, rgb(44, 47, 60) 47.23%, rgb(44, 46, 62) 54.94%, rgb(45, 42, 56) 71.02%, rgb(41, 40, 58) 86.35%, rgb(20, 20, 21) 100%);*/
+
+}
+.logo-container {text-align: left;margin-left: 27.5%;}
+.header .logo{max-width:374px; width:100%;}
+.header .userDetails{float:right; margin:0px;}
+.header .userDetails li{float:left; margin-left:10px; display:inline; font-size:13px; color:#fff; font-family:ralewayregular;}
+.header .userDetails li a{color:#fff;}
+.header .userDetails li .profilePic{height:40px;width: 40px; border-radius:50%;}
+.left-panel{width:100%; background:#8a9499; border-radius:0 50px 0 0; float:left; min-height:600px; padding:50px 10px 20px 15px;}
+.left-panel .userpic{width:100px; height:100px; float:left; border-radius:50%; }
+.left-panel .userName{width:150px; height:100px; padding-top:40px; float:left;color:#fff; font-size:25px; font-family:ralewaymedium;  }
+
+.left-panel .links{width:100%; float:left; margin:100px 0 0 0;}
+.left-panel .links li{width:100%; float:left; margin-bottom:15px;}
+.left-panel .links li a{font-size:20px; font-family:ralewaymedium; color:#000; line-height:21px; float:left; width:100%;}
+.left-panel .links li a img{vertical-align:sub;}
+
+.mid-container{width:100%; float:left;}
+.rightPanel{width:100%; float:left;}
+.singerPic{width:100%; float:left; position:relative;}
+.singerPic img{width:100%;}
+.singerPic .singerName{position:absolute; z-index:10; background:rgba(51,51,51,0.8); display:none; padding:5px 10px; width:100%; font-size:20px; color:#fff; font-family:ralewaymedium; left:0; bottom:20px;}
+.singerPic:hover .singerName{display:block}
+
+.content-block{width:100%; float:left;}
+.breadcrumb-nav{width:100%; float:left; font-size:22px; color:#fff; font-family:ralewaybold; margin-bottom:20px;}
+.breadcrumb-nav img{ vertical-align:sub;}
+.breadcrumb-nav a, .breadcrumb-nav span{color:#fff; float:left; margin-right:10px; line-height:26px;}
+
+.addPost{width:100%; float:left; background:#FFFFFF; padding:10px; border-radius:25px; margin-bottom:30px;}
+.addPost .user-pic{width:100%; float:left;}
+.addPost .user-pic img{width:42px; height:42px; border-radius:50%;  float:left;}
+.addPost textArea{width:100%; height:42px; padding:20px 15px; border:0; float:left; background:#fff; font-size:16px; color:#000; font-family:ralewayregular;}
+.addPost textArea::-webkit-input-placeholder{vertical-align: center;}
+.addPost .addPostBtn{height:30px; width:30px; float:right; border-radius:15px; background:#fc5151; margin-top:6px; box-shadow:0px 1px 2px #000; color:#fff; font-size:35px; line-height:30px; text-align:center; font-family:ralewaymedium;}
+
+.post-item{width:100%; float:left; background:#ccc; padding:15px 0 30px; border-radius:30px; margin-bottom:30px;}
+.post-item .postTop{width:100%; float:left; Position:relative; padding:10px;}
+.post-item .postTop .userpic{width:100px; height:100px; float:left;position:absolute; z-index:10; top:0; left:10px; border-radius:50%;}
+.post-item .postTop .postDetails{width:100%; float:left; padding-left:120px;}
+.post-item .postTop .postDetails .name{width:100%; float:left; color:#000; font-size:25px; margin-bottom:10px; line-height:25px; font-family:ralewaysemibold;height: 75px;padding-top: 25px;}
+.post-item .postTop .postDetails .intro{width:100%; float:left; color:#000; font-size:21px; margin-bottom:10px; line-height:21px; font-family:ralewaymedium;}
+.post-item .postTop .postDetails .other{width:100%; float:left; font-size:11px;}
+.post-item .mediaSection{width:100%; float:left; }
+.post-item .text-section{padding: 8px 20px;background: #f5f5f5;width: 100%;}
+.post-item .text-section .like_count_span{font-family: initial;padding-left: 20px;}
+.post-item .mediaSection img{width:100%;}
+.post-item .leavecomment{width:100%; float:left; background:#e6e6e6; border:1px solid #636363; height:50px;margin-bottom:20px;}
+.post-item .leavecomment input[type="text"]{width:85%; background:none; float::left;  height:48px; padding:0 0 0 15px; line-height:48px;border:0px;}
+.post-item  .leaveCommentsBtn{height:30px; width:30px; float:right; border-radius:15px; background:#fc5151; margin-top:6px; box-shadow:0px 1px 2px #000; color:#fff; font-size:35px; line-height:30px; text-align:center; font-family:ralewaymedium;}
+.post-item .comments{width:100%; float:left; Position:relative; padding:10px;}
+.post-item .comments .userpic{width:60px; height:60px; float:left; position:absolute; z-index:10; top:12px; left:10px; border-radius:50%;}
+.post-item .comments .comment-text{width:100%; float:left; padding-left:80px;}
+.post-item .comments .comment-text span{width:100%; float:left; background:#e6e6e6; border-radius:15px; padding:15px;}
+.post-item .comments .comment-text span .comment_like_button{float: left;padding: 5px 20px;}
+.post-item .comments .comment-text span .like_count_span{float: left;padding: 4px;}
+.fixed {overflow-y: auto;position: fixed;z-index: 100;width:100%;}
+.social_icons{width:20px;}
+.social_icons_container{text-align: right;    margin-right: 4%;}
+.nav>li>a:focus, .nav>li>a:hover {border-radius: 50%;background-color: rgba(173, 170, 170, 0.5);}
+.nav>li{float:left;}
+.nav>li>a {padding: 5px 5px;}
+/*.main-menu-section{padding-left: 0px;padding-right: 0px;}*/
+.main-menu-items {text-align: center;font-family: Helvetica Neue;font-size: 21px;color: #FFFFFF;color: rgb(255, 255, 255) !important;text-decoration: none;width: 14%;}
+.main-menu-items a{color : rgb(255, 255, 255) !important;}
+.post-item p{font-weight: 200;}
+.post-item span{font-weight: 200;}
+
+
+
+
