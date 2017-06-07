@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>front/assets/css/style.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>front/css/login.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/vendors/nefty_popup/dist/jquery.niftymodals.css" />
-     
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <style>
 
         </style>

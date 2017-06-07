@@ -28,26 +28,22 @@
                     <div class="col-sm-8">
                         <div class="contact-form">
                             <h3>Contact Us:</h3>
-                            <form class="">
+                            <form id="contactForm" class="">
                                 <div class="form-group">
                                     <input type="text" name="name" placeholder="Name: " class="form-input form-control">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="Email" placeholder="Email: " class="form-input form-control">
+                                    <input type="text" name="email" placeholder="Email: " class="form-input form-control">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="Phone" placeholder="Phone: " class="form-input form-control">
+                                    <input type="text" name="phone" placeholder="Phone: " class="form-input form-control">
                                 </div>
                                 <div class="form-group">
                                     <textarea name="message" class="form-input form-control" rows="3" placeholder="Message: "></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn form-button">Send</button>
+                                    <button type="submit" class="btn form-button">Send</button>
                                 </div>
-
-
-
-
                             </form>
                         </div>
                     </div>
@@ -55,10 +51,20 @@
 
             </div>
             <div class="clear"></div>
-            <!-- <div class="">
-                                                    <div id="map"></div>
-                                            </div> -->
-
         </div>	
     </div>
 </section>
+
+<script type="text/javascript">
+    $("#contactForm").submit(function(event){
+        event.preventDefault();
+        var a=document.forms["contactForm"]["name"].value;
+        var b=document.forms["contactForm"]["email"].value;
+        var c=document.forms["contactForm"]["phone"].value;
+        var d=document.forms["contactForm"]["message"].value;
+        if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="") {
+          $('#err_msg').text('Please Enter value');
+          $('#myModal').modal('show');
+        }
+    });
+</script>
