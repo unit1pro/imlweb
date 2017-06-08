@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jun 06, 2017 at 12:54 AM
--- Server version: 5.6.35
--- PHP Version: 5.6.30
+-- Host: 127.0.0.1
+-- Generation Time: Jun 07, 2017 at 12:56 PM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `indianmu_iml`
+-- Database: `iml`
 --
 
 -- --------------------------------------------------------
@@ -146,7 +146,11 @@ INSERT INTO `iml_comment_song` (`COM_ID`, `ID`, `parent_id`, `AUTHOR`, `EMAIL`, 
 (10, 1, 0, NULL, NULL, 'Hello', NULL, 0, b'1', '2017-06-04 06:47:54', 1, '2017-06-04 06:47:54', 1),
 (11, 1, -1, NULL, NULL, 'jadgkhadgf', NULL, 0, b'1', '2017-06-04 06:52:29', 1, '2017-06-04 06:52:29', 1),
 (12, 1, 10, NULL, NULL, 'hello to you', NULL, 0, b'1', '2017-06-04 07:08:32', 1, '2017-06-04 07:08:32', 1),
-(13, 1, 0, NULL, NULL, 'Latest post with shikhar', NULL, 0, b'1', '2017-06-04 07:19:37', 1, '2017-06-04 07:19:37', 1);
+(13, 1, 0, NULL, NULL, 'Latest post with shikhar', NULL, 0, b'1', '2017-06-04 07:19:37', 1, '2017-06-04 07:19:37', 1),
+(14, 22, 13, NULL, NULL, 'hello from raj', NULL, 0, b'1', '2017-06-07 11:40:18', 22, '2017-06-07 11:40:18', 22),
+(15, 22, 0, NULL, NULL, 'HELLO TESTING RAJ', NULL, 0, b'1', '2017-06-07 11:40:57', 22, '2017-06-07 11:40:57', 22),
+(16, 22, 15, NULL, NULL, 'again testing', NULL, 0, b'1', '2017-06-07 11:41:13', 22, '2017-06-07 11:41:13', 22),
+(17, 22, 15, NULL, NULL, 'sgs', NULL, 0, b'1', '2017-06-07 12:35:31', 22, '2017-06-07 12:35:31', 22);
 
 -- --------------------------------------------------------
 
@@ -250,7 +254,12 @@ INSERT INTO `social_response` (`id`, `response_type`, `response_on`, `post_type`
 (5, 1, 4, 2, 1, '2017-06-04 09:08:48', 1, '2017-06-04 09:08:48'),
 (6, 1, 3, 2, 1, '2017-06-04 09:08:50', 1, '2017-06-04 09:08:50'),
 (7, 1, 2, 2, 1, '2017-06-04 09:08:52', 1, '2017-06-04 09:08:52'),
-(8, 1, 13, 2, 1, '2017-06-06 08:29:55', 1, '2017-06-06 08:29:55');
+(8, 1, 13, 2, 1, '2017-06-06 08:29:55', 1, '2017-06-06 08:29:55'),
+(9, 0, 13, 2, 22, '2017-06-07 06:09:56', 22, '2017-06-07 06:10:05'),
+(10, 1, 14, 3, 22, '2017-06-07 06:10:25', 22, '2017-06-07 06:10:25'),
+(11, 1, 15, 2, 22, '2017-06-07 06:10:59', 22, '2017-06-07 06:10:59'),
+(12, 1, 16, 3, 22, '2017-06-07 06:11:16', 22, '2017-06-07 07:05:45'),
+(13, 1, 17, 3, 22, '2017-06-07 07:05:35', 22, '2017-06-07 07:05:42');
 
 -- --------------------------------------------------------
 
@@ -581,7 +590,7 @@ ALTER TABLE `group_categories`
 -- AUTO_INCREMENT for table `iml_comment_song`
 --
 ALTER TABLE `iml_comment_song`
-  MODIFY `COM_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `COM_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `industry_communication`
 --
@@ -601,7 +610,7 @@ ALTER TABLE `m_reference_detail`
 -- AUTO_INCREMENT for table `social_response`
 --
 ALTER TABLE `social_response`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `songs`
 --

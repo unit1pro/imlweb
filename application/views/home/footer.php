@@ -134,7 +134,7 @@
                 return false;
             }
 
-            $( "input, textarea" ).focusout(function(event) {
+            $( "input[type!='file'], textarea" ).focusout(function(event) {
               event.preventDefault();
               
               var errors = 4;
@@ -174,17 +174,27 @@
                             $('#myModal').modal('show');
                         }           
                         break;
-                    case 'attachment':
-                        var ext = inputValue.split('.').pop().toLowerCase();
-                        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-                            $('#err_msg').text('Please input valid file');
-                            $('#myModal').modal('show');
-                        } else {
-                            errors--;
-                        }                 
-                        break;
                 }
               return false;
+            });
+
+            $("input:file").change(function(event){
+                var inputValue = $(this).val();
+                if(!inputValue){
+                  $('#err_msg').text('Please Enter value in this field');
+                  $('#myModal').modal('show');
+                  return false;
+                }
+                var ext = inputValue.split('.').pop().toLowerCase();
+                var size = this.files[0].size;      //1000000 = 1MB
+                if($.inArray(ext, ['gif','png','jpg','jpeg','mp4','wmv','mov','avi','mp3']) == -1) {
+                    $('#err_msg').text('Please input valid file');
+                    $('#myModal').modal('show');
+                } else if (size > 10000000) {
+                     $('#err_msg').text('Please select smaller size file.');
+                     $('#myModal').modal('show');
+                } 
+                return false;
             });
         </script>
     </body>
