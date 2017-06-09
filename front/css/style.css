@@ -40,7 +40,7 @@ body{font-size:14px; font-family:ralewayregular;
 .header .userDetails li{float:left; margin-left:10px; display:inline; font-size:13px; color:#fff; font-family:ralewayregular;}
 .header .userDetails li a{color:#fff;}
 .header .userDetails li .profilePic{height:40px;width: 40px; border-radius:50%;}
-.left-panel{width:100%; background:#8a9499; border-radius:0 50px 0 0; float:left; min-height:600px; padding:50px 10px 20px 15px;}
+.left-panel{width:100%; background:#8a9499; border-radius:10px 10px 10px 10px; float:left; min-height:600px; padding:50px 10px 20px 15px;}
 .left-panel .userpic{width:100px; height:100px; float:left; border-radius:50%; }
 .left-panel .userName{width:150px; height:100px; padding-top:40px; float:left;color:#fff; font-size:25px; font-family:ralewaymedium;  }
 
@@ -68,7 +68,7 @@ body{font-size:14px; font-family:ralewayregular;
 .addPost textArea::-webkit-input-placeholder{vertical-align: center;}
 .addPost .addPostBtn{height:30px; width:30px; float:right; border-radius:15px; background:#fc5151; margin-top:6px; box-shadow:0px 1px 2px #000; color:#fff; font-size:35px; line-height:30px; text-align:center; font-family:ralewaymedium;}
 
-.post-item{width:100%; float:left; background:#ccc; padding:15px 0 30px; border-radius:30px; margin-bottom:30px;}
+.post-item{width:100%; float:left; background:#ccc; padding:15px 0 30px; border-radius:10px; margin-bottom:30px;}
 .post-item .postTop{width:100%; float:left; Position:relative; padding:10px;}
 .post-item .postTop .userpic{width:100px; height:100px; float:left;position:absolute; z-index:10; top:0; left:10px; border-radius:50%;}
 .post-item .postTop .postDetails{width:100%; float:left; padding-left:120px;}

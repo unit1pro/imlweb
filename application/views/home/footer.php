@@ -118,8 +118,6 @@
                         'data': data,
                         'type': 'post',
                         success: function (res) {
-
-
                             $(object).prop('disabled', false);
                             console.log(res);
                             $('#book-artist-modal').modal('hide');

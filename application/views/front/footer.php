@@ -1,4 +1,3 @@
-
 </div>
 
 
@@ -531,6 +530,7 @@
                         html += '</div>';
                         html += '</div>';
                     });
+                        
 
                     $('#public_wall').append(html);
                     $('.md-close').trigger('click');
@@ -600,7 +600,10 @@
             });
 
         } else {
-            alert('Please Login to use the Service!!!');
+            // alert('Please Login to use the Service!!!');
+
+            // $('#err_msg').text('Please login to use the service!!!');
+            // $('#myModal').modal('show');
         }
     }
 
@@ -710,7 +713,6 @@
 
 
     function commentSubmit(ele) {
-        console.log(ele);
         var user = '<?php echo $_SESSION['user_data']['UID']; ?>';
         if (user) {
             var comment = $(ele).parent().find('.comment_field').val();
@@ -733,28 +735,28 @@
 
                         $.each(obj.comment, function (scKey, sc) {
                             var sc_response = sc.user_response;
-                                var user_image = base_url + 'uploads/images/user.png';
-                                if (sc.Photo != '') {
-                                    user_image = base_url + 'uploads/images/' + sc.Photo;
-                                }
-                                html += '<div class="comments">';
-                                html += '<img src="' + user_image + '" alt="user-image" class="userpic"/>';
-                                html += '<div class="comment-text">';
+                            var user_image = base_url + 'uploads/images/user.png';
+                            if (sc.Photo != '') {
+                                user_image = base_url + 'uploads/images/' + sc.Photo;
+                            }
+                            html += '<div class="comments">';
+                            html += '<img src="' + user_image + '" alt="user-image" class="userpic"/>';
+                            html += '<div class="comment-text">';
 //                                html += '<div class="">';
-                                html += '<span class=""><b>' + sc.FirstName + ' ' + sc.LastName + '</b><hr>';
-                                html += '<br>' + sc.COMMENTS + '<br>';
-                                html += '<a href="javascript:void(0)" class="like_button comment_like_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
-                               
-                                html += '<div class="like_count_span">';
-                                if (sc.like_count) {
-                                    html += sc.like_count + ' Likes';
-                                }
-                                html += '</div>';
-                                html += '</span>';
+                            html += '<span class=""><b>' + sc.FirstName + ' ' + sc.LastName + '</b><hr>';
+                            html += '<br>' + sc.COMMENTS + '<br>';
+                            html += '<a href="javascript:void(0)" class="like_button comment_like_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
 
-                                html += '</div>';
-                                html += '</div>';
-                        });
+                            html += '<div class="like_count_span">';
+                            if (sc.like_count) {
+                                html += sc.like_count + ' Likes';
+                            }
+                            html += '</div>';
+                            html += '</span>';
+
+                            html += '</div>';
+                            html += '</div>';
+                            });
                         console.log($(ele).parent().parent().find('comment_container'));
                         console.log(html);
 
@@ -763,7 +765,9 @@
                 }
             });
         } else {
-            alert('Please Login to user the service.');
+            alert('Please login to use this service');
+            // $('#err_msg').text('Please login to use the services!!!');
+            // $('#myModal').modal('show');
         }
     }
 </script> 
