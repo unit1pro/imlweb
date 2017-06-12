@@ -20,7 +20,7 @@
                             <?php if ($_SESSION['user_data']['UID'] == $profile_data[0]['UID']) { ?>
                                 <span id="profile_update_button" class="pull-right fa fa-pencil-square-o"> Update</span></li>                            
                         <?php } ?>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Real name</strong></span><?php echo $profile_data[0]['FirstName'] . ' ' . $profile_data[0]['LastName']; ?></li>
+                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Full name</strong></span><?php echo $profile_data[0]['FirstName'] . ' ' . $profile_data[0]['LastName']; ?></li>
                         <li class="list-group-item text-right"><span class="pull-left"><strong class="">Date of Birth </strong></span><?php echo $profile_data[0]['DOB']; ?></li>
                         <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span><?php echo $profile_data[0]['DateJoined']; ?></li>
                     </ul>
@@ -48,7 +48,7 @@
                     <div class="panel-heading"><?php echo $profile_data[0]['UserName']; ?>'s Bio</div>
                     <div class="panel-body"><?php echo (isset($profile_data[0]['AboutMe']) && !empty($profile_data[0]['AboutMe'])) ? $profile_data[0]['AboutMe'] : 'About Not Found!!!'; ?>
 
-                        <?php $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? base_url('uploads/images') . '/' . $profile_data[0]['Photo'] : base_url('front') . '/img/user-image.png'; ?>
+                        <?php $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? base_url('uploads/images') . '/' . $profile_data[0]['Photo'] : base_url('uploads') . '/images/user.png'; ?>
                         <img id="profile_pic" src="<?php echo $userImageHeader; ?>" name="photo" class="img-rounded img-responsive pull-right" width="100" height="100" alt="avatar">
                     </div>
                 </div>
@@ -70,7 +70,7 @@
 
 
     <!-- left column -->
-    <form id="formdata" action="<?php echo site_url('User/update_profile'); ?>" method="post" class="form-horizontal" enctype="multipart/form-data" role="form">
+    <form id="formdata" action="<?php echo site_url('User/update_profile'); ?>" method="post" class="form-horizontal" enctype="multipart/form-data" role="form" style="display:none">
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="text-center">
                 <?php $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? base_url('uploads/images') . '/' . $profile_data[0]['Photo'] : base_url('front') . '/img/user-image.png'; ?>

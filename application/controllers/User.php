@@ -95,11 +95,13 @@ class User extends CI_Controller {
                 $this->session->set_userdata('alert_msg', '');
                 redirect($uri, 'refresh');
             } else {
-                $this->session->set_userdata('alert_msg', 'Wrong Username or password');
+                $this->session->set_flashdata('alert_msg', 'Wrong Username or password');
+                // $this->session->set_userdata('alert_msg', 'Wrong Username or password');
                 redirect($uri, 'refresh');
             }
         } else {
-            $this->session->set_userdata('alert_msg', 'Please enter Username and password');
+             $this->session->set_flashdata('alert_msg', 'Please enter Username and password');
+            // $this->session->set_userdata('alert_msg', 'Please enter Username and password');
             redirect($uri, 'refresh');
         }
     }
@@ -107,37 +109,42 @@ class User extends CI_Controller {
     function signup_front() {
         $uri = $_GET['uri'];
         $formdata = $this->input->post();
-        if ($formdata['password'] == $formdata['conf_password']) {
-            $emails = $this->User_model->get_emails();
-            $list_emial = array_column($emails, 'Email');
+        if(empty($formdata)){
+            if ($formdata['password'] == $formdata['conf_password']) {
+                $emails = $this->User_model->get_emails();
+                $list_emial = array_column($emails, 'Email');
 
-            if (empty(array_search($formdata['email'], $list_emial))) {
-                $user_data = array(
-                    'UserName' => isset($formdata['UserName']) && $formdata['UserName'] ? $formdata['UserName'] : '',
-                    'FirstName' => isset($formdata['firstName']) && $formdata['firstName'] ? $formdata['firstName'] : '',
-                    'LastName' => isset($formdata['lastName']) && $formdata['lastName'] ? $formdata['lastName'] : '',
-                    'Email' => isset($formdata['email']) && $formdata['email'] ? $formdata['email'] : '',
-                    'Password' => isset($formdata['password']) && $formdata['password'] ? md5($formdata['password']) : '',
-                    'UserType' => '4',
-                    'isActive' => '1',
-                );
-                $result = $this->User_model->insert_data($user_data);
-                $user_data=$this->User_model->get_single($result);
-                if ($result) {
-                    $sess_array = array();
-                    $this->session->set_userdata('user_data', $user_data[0]);
-                    $this->session->set_userdata('alert_msg', 'User Successful Registed, You can login into your account');
-                    redirect($uri, 'refresh');
+                if (empty(array_search($formdata['email'], $list_emial))) {
+                    $user_data = array(
+                        'UserName' => isset($formdata['UserName']) && $formdata['UserName'] ? $formdata['UserName'] : '',
+                        'FirstName' => isset($formdata['firstName']) && $formdata['firstName'] ? $formdata['firstName'] : '',
+                        'LastName' => isset($formdata['lastName']) && $formdata['lastName'] ? $formdata['lastName'] : '',
+                        'Email' => isset($formdata['signup_email']) && $formdata['signup_email'] ? $formdata['signup_email'] : '',
+                        'Password' => isset($formdata['password']) && $formdata['password'] ? md5($formdata['password']) : '',
+                        'UserType' => '4',
+                        'isActive' => '1',
+                    );
+                    $result = $this->User_model->insert_data($user_data);
+                    $user_data=$this->User_model->get_single($result);
+                    if ($result) {
+                        $sess_array = array();
+                        $this->session->set_userdata('user_data', $user_data[0]);
+                        $this->session->set_flashdata('alert_msg', 'User Successful Registed, You can login into your account');
+                        redirect($uri, 'refresh');
+                    } else {
+                        $this->session->set_flashdata('alert_msg', 'Sign up Failed!!!');
+                        redirect($uri, 'refresh');
+                    }
                 } else {
-                    $this->session->set_userdata('alert_msg', 'Sign up Failed!!!');
+                    $this->session->set_flashdata('alert_msg', 'Email already exist.');
                     redirect($uri, 'refresh');
                 }
             } else {
-                $this->session->set_userdata('alert_msg', 'Email already exist.');
+                $this->session->set_flashdata('alert_msg', 'Password not matched!!!');
                 redirect($uri, 'refresh');
             }
         } else {
-            $this->session->set_userdata('alert_msg', 'Password not matched!!!');
+            $this->session->set_flashdata('alert_msg', 'Please Enter values in the Field!!!');
             redirect($uri, 'refresh');
         }
     }
@@ -449,25 +456,43 @@ class User extends CI_Controller {
             if (!$session_data['UID'])
                 throw new Exception("Session Expired Please Login");
 
-            if (!empty($_FILES)) {
-                $target_dir = UPLOADS . '/images/';
-                $target_file = $target_dir . basename($_FILES["upload"]["name"]);
-                $uploadOk = 1;
-                $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-
-                if (imageFileType) {
-                    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-                        $data['error_msg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                    }
-                    if (move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) {
-                        $response['status'] = 1;
-                    } else {
-                        $data['error_msg'] = "File uploading Failed because ";
-                    }
+            if (!empty($_FILES)) {                
+                if (!isset($_FILES['upload']['error']) || is_array($_FILES['upload']['error'])) {
+                    throw new RuntimeException('Invalid parameters.');
                 }
-            } else {
-                $response['error_msg'] = "File doenst exits";
+                switch ($_FILES['upload']['error']) {
+                    case UPLOAD_ERR_OK:
+                        break;
+                    case UPLOAD_ERR_NO_FILE:
+                        throw new RuntimeException('No file sent.');
+                    case UPLOAD_ERR_INI_SIZE:
+                    case UPLOAD_ERR_FORM_SIZE:
+                        throw new RuntimeException('Exceeded filesize limit.');
+                    default:
+                        throw new RuntimeException('Unknown errors.');
+                }
+                if ($_FILES['upload']['size'] > 1000000) {
+                    throw new RuntimeException('Exceeded filesize limit.');
+                }
+                $types = array(
+                    'jpg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'gif' => 'image/gif',
+                );
+                $finfo = new finfo(FILEINFO_MIME_TYPE);
+                if (false === $ext = array_search($finfo->file($_FILES['upload']['tmp_name']), $types, true)) {
+                    throw new RuntimeException('Invalid file format.');
+                }
+                
+                $filename = base_url() . sprintf('./uploads/images/%s_%s.%s', md5($_FILES['upload']['tmp_name']), date('ymdhis'), $ext);
+                $file = md5($_FILES['upload']['tmp_name']).'_'.date('ymdhis').'.'.$ext;
+    //            echo $filename;
+    //            exit;
+                if (!move_uploaded_file($_FILES['upload']['tmp_name'], sprintf('./uploads/images/%s_%s.%s', md5($_FILES['upload']['tmp_name']), date('ymdhis'), $ext))) {
+                    throw new RuntimeException('Failed to move uploaded file.');
+                }
             }
+
             $formdata = $_POST;
 
             $user_data = array(
@@ -480,7 +505,7 @@ class User extends CI_Controller {
                 'City' => isset($formdata['City']) && $formdata['City'] ? $formdata['City'] : '',
                 'State' => isset($formdata['State']) && $formdata['State'] ? $formdata['State'] : '',
                 'Country' => isset($formdata['Country']) && $formdata['Country'] ? $formdata['Country'] : '',
-                'Photo' => isset($formdata['photo_name']) && $formdata['photo_name'] ? $formdata['photo_name'] : '',
+                'Photo' => isset($file) && !empty($file) ? $file : '',
                 'AboutMe' => isset($formdata['AboutMe']) && $formdata['AboutMe'] ? $formdata['AboutMe'] : '',
                 'DateJoined' => date("Y-m-d"),
                 'UserType' => '4',

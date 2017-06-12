@@ -53,7 +53,7 @@
              <div id="public_wall">
                  
                  
-                </div>
+             </div>
 
       </div>
       

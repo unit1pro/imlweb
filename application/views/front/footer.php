@@ -1,3 +1,20 @@
+<!-- Button trigger modal -->
+<button id="launchModal" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#errorModal" style="display:none">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content panel-danger">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 id="error_msg" class="modal-title">Modal Header</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 
@@ -226,6 +243,7 @@
 //            $('#comment_post_form').submit();
         } else {
             alert("Please write somthing to submit the form");
+
         }
     });
 </script>
@@ -548,7 +566,7 @@
                         if (user) {
                             window.location.replace(location);
                         } else {
-                            alert('Please Login to use the service.');
+                            modalAlert();
                         }
                     });
                 }
@@ -600,11 +618,13 @@
             });
 
         } else {
-            // alert('Please Login to use the Service!!!');
-
-            // $('#err_msg').text('Please login to use the service!!!');
-            // $('#myModal').modal('show');
+            modalAlert();
         }
+    }
+
+    function modalAlert() {
+        $('#error_msg').text('Please login to use the service!!!');
+        $("#launchModal").trigger( "click" );
     }
 
     function get_post_industry(data) {
@@ -765,9 +785,8 @@
                 }
             });
         } else {
-            alert('Please login to use this service');
-            // $('#err_msg').text('Please login to use the services!!!');
-            // $('#myModal').modal('show');
+            // alert('Please login to use this service');
+            modalAlert();
         }
     }
 </script> 
@@ -996,7 +1015,7 @@ function get_post_by_user(data) {
                         if (user) {
                             window.location.replace(location);
                         } else {
-                            alert('Please Login to use the service.');
+                            modalAlert();
                         }
                     });
                 }

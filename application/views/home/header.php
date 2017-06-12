@@ -94,19 +94,19 @@
                         <div class="tab-content">
 
                             <div id="login">
-                                <form action="<?php echo base_url() . 'index.php/User/login_front?uri=' . uri_string(); ?>" method="post">
+                                <form id="login_form" action="<?php echo base_url() . 'index.php/User/login_front?uri=' . uri_string(); ?>" method="post" onsubmit="return validateLogin();">
 
                                     <div class="field-wrap">
-                                        <input type="text" placeholder="Enter Username" name="UserName" required autocomplete="off"/>
+                                        <input type="text" placeholder="Enter Username" name="UserName" id="loginUserName" autocomplete="off"/>
                                     </div>
 
                                     <div class="field-wrap">
-                                        <input type="password" placeholder="Password" name="Password" required autocomplete="off"/>
+                                        <input type="password" placeholder="Password" name="Password" id="loginPassword" autocomplete="off"/>
                                     </div>
 
                                     <p class="forgot"><a href="#">Forgot Password?</a></p>
 
-                                    <button class="button button-block"/>Log In</button>
+                                    <button type="submit" class="button button-block"/>Log In</button>
 
                                 </form>
 
@@ -114,32 +114,32 @@
 
                             <div id="signup">   
 
-                                <form action="<?php echo base_url() . 'index.php/User/signup_front?uri=' . uri_string(); ?>" method="post">
+                                <form id="signUpForn" action="<?php echo base_url() . 'index.php/User/signup_front?uri=' . uri_string(); ?>" method="post" onsubmit="return validateSignUp();">
 
                                     <div class="field-wrap">
-                                        <input type="text" placeholder="Enter Username" name="UserName" required autocomplete="off"/>
+                                        <input type="text" placeholder="Enter Username" name="UserName" id="registerUsername" required autocomplete="off"/>
                                     </div>
 
                                     <div class="top-row">
                                         <div class="field-wrap">
-                                            <input type="text" placeholder="First Name" name="firstName" required autocomplete="off" />
+                                            <input type="text" placeholder="First Name" name="firstName"  required autocomplete="off" />
                                         </div>
 
                                         <div class="field-wrap">
-                                            <input type="text" placeholder="Last Name" name="lastName" required autocomplete="off"/>
+                                            <input type="text" placeholder="Last Name" name="lastName"  required autocomplete="off"/>
                                         </div>
                                     </div>
 
                                     <div class="field-wrap">
-                                        <input type="email" placeholder="Email Address" name="email" required autocomplete="off"/>
+                                        <input type="email" placeholder="Email Address" name="signup_email" id="registerEmail"  required autocomplete="off"/>
                                     </div>
 
                                     <div class="field-wrap">
-                                        <input type="password" placeholder="Set A Password" name="password" required autocomplete="off"/>
+                                        <input type="password" placeholder="Set A Password" name="password"  required autocomplete="off"/>
                                     </div>
 
                                     <div class="field-wrap">
-                                        <input type="password" placeholder="Confirm Password" name="conf_password" required autocomplete="off"/>
+                                        <input type="password" placeholder="Confirm Password" name="conf_password"  required autocomplete="off"/>
                                     </div>
 
                                     <button type="submit" class="button button-block"/>Get Started</button>

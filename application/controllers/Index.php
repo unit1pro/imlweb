@@ -30,7 +30,6 @@ class Index extends CI_Controller {
 
     function bookArtist() {
         $data = $_POST;
-
         $html = '<div>
                         <table border="0">
                             <tr>

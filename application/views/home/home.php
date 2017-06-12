@@ -69,8 +69,6 @@
                             <!--<label for="exampleInputPassword1">Name</label>-->
                             <input type="text" class="form-control clear_text required" id="exampleInputPassword1" name="name" placeholder="Name :">
                             <input type="hidden" name="subject" value="Book Shikhar Kumar">
-
-
                         </div>
 
                         <div class="form-group">

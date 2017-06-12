@@ -9,7 +9,10 @@
         <link rel="icon" type="image/png" href="<?php echo base_url() ?>front/images/logo-red.png">
 
         <!-- Bootstrap -->
-        <link href="<?php echo base_url() ?>front/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="<?php echo base_url() ?>front/css/style.css" rel="stylesheet" type="text/css">
         <link href="<?php echo base_url() ?>front/css/fonts.css" rel="stylesheet" type="text/css">
         <link href="<?php echo base_url() ?>front/css/global.css" rel="stylesheet" type="text/css">

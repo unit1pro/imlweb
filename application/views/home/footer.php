@@ -1,5 +1,5 @@
 <!-- Modal content-->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="errorModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content panel-danger">
       <div class="modal-header panel-heading">
@@ -33,6 +33,13 @@
             var modal = $(this).data('modal');
             $("#" + modal).niftyModal();
         });
+
+        var error = '<?php echo $this->session->alert_msg;?>';
+        console.log(error);
+        if(error){
+            $('#err_msg').text(error);
+            $('#errorModal').modal('show');
+        }
     });
 </script> 
 <script>
@@ -112,9 +119,8 @@
                 if (!error) {
                     $(object).prop('disabled', true);
                     var data = $('#book_artist').serialize();
-                    console.log(data);
                     $.ajax({
-                        'url': 'sendMail.php',
+                        'url': "<?php echo base_url(); ?>/Index/bookArtist/",
                         'data': data,
                         'type': 'post',
                         success: function (res) {
@@ -135,64 +141,162 @@
             $( "input[type!='file'], textarea" ).focusout(function(event) {
               event.preventDefault();
               
-              var errors = 4;
-              var name = this.name;
-              var inputValue = $(this).val();
-              if(!inputValue){
-                $('#err_msg').text('Please Enter value in this field');
-                $('#myModal').modal('show');
-                return false;
+              var formid = $(this).parent().parent().parent().attr('id');
+
+              if( formid !== 'signup'){
+                  var errors = 4;
+                  var name = this.name;
+                  var inputValue = $(this).val();
+                  if(!inputValue){
+                    $('#err_msg').text('Please Enter value in this field');
+                    $('#errorModal').modal('show');
+                    return false;
+                  }
+                  switch(name) {
+                        case 'message':
+                        case 'name':
+                            var letters = /^[0-9a-zA-Z]+$/;  
+                            if(inputValue.match(letters)) {
+                                errors--;
+                            } else  {
+                                $('#err_msg').text('Please input alphanumeric characters only');
+                                $('#errorModal').modal('show');
+                            }  
+                            break;
+                        case 'email':
+                            var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
+                            if(inputValue.match(emailPattern)) {   
+                                errors--;
+                            } else  {
+                                $('#err_msg').text('Please input valid email only');
+                                $('#errorModal').modal('show');
+                            }          
+                            break;
+                        case 'phone':
+                            var phonePattern = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;  
+                            if(inputValue.match(phonePattern)) {   
+                                errors--;
+                            } else  {
+                                $('#err_msg').text('Please input valid phone number only');
+                                $('#errorModal').modal('show');
+                            }           
+                            break;
+                        case 'UserName':
+
+                    }
+                  return false;
               }
-              switch(name) {
-                    case 'message':
-                    case 'name':
-                        var letters = /^[0-9a-zA-Z]+$/;  
-                        if(inputValue.match(letters)) {
-                            errors--;
-                        } else  {
-                            $('#err_msg').text('Please input alphanumeric characters only');
-                            $('#myModal').modal('show');
-                        }  
-                        break;
-                    case 'email':
-                        var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
-                        if(inputValue.match(emailPattern)) {   
-                            errors--;
-                        } else  {
-                            $('#err_msg').text('Please input valid email only');
-                            $('#myModal').modal('show');
-                        }          
-                        break;
-                    case 'phone':
-                        var phonePattern = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;  
-                        if(inputValue.match(phonePattern)) {   
-                            errors--;
-                        } else  {
-                            $('#err_msg').text('Please input valid phone number only');
-                            $('#myModal').modal('show');
-                        }           
-                        break;
-                }
-              return false;
             });
 
             $("input:file").change(function(event){
                 var inputValue = $(this).val();
                 if(!inputValue){
                   $('#err_msg').text('Please Enter value in this field');
-                  $('#myModal').modal('show');
+                  $('#errorModal').modal('show');
                   return false;
                 }
                 var ext = inputValue.split('.').pop().toLowerCase();
                 var size = this.files[0].size;      //1000000 = 1MB
                 if($.inArray(ext, ['gif','png','jpg','jpeg','mp4','wmv','mov','avi','mp3']) == -1) {
                     $('#err_msg').text('Please input valid file');
-                    $('#myModal').modal('show');
+                    $('#errorModal').modal('show');
                 } else if (size > 10000000) {
                      $('#err_msg').text('Please select smaller size file.');
-                     $('#myModal').modal('show');
+                     $('#errorModal').modal('show');
                 } 
                 return false;
+            });
+
+            function validateLogin() {
+                var username = $("#loginUserName").val();
+                if( username === '' ) {
+                    $("#loginUserName").append('<p>Please Provide Username.</p>');
+                    $("#loginUserName").css('border-color','#ff0000');
+                    return false;
+                } else {
+                    $("#loginUserName").css('border-color','#ffffff');
+                }
+                var password = $("#loginPassword").val();
+                if( password === '' ) {
+                    $("#loginPassword").append('<p>Please Provide Username.</p>');
+                    $("#loginPassword").css('border-color','#ff0000');
+                    return false;
+                } else {
+                    $("#loginPassword").css('border-color','#ffffff');
+                }
+                return true;
+            }
+
+            $("#signup input").focusout(function(event){
+              event.preventDefault();
+
+              var name = this.name;
+              var inputValue = $(this).val();
+              if(!inputValue){
+                var presence = $(this).parent().find('p');
+                if(presence.length === 0){
+                    $(this).css('border-color','#ff0000');
+                    $(this).parent().append('<p class="text-danger">This field is mandatory!!!</p>');
+                }
+                return false;                    
+              } else {
+                $(this).parent().find('p').remove();
+              }
+              switch(name) {
+                    case 'UserName':
+                        var letters = /^[0-9a-zA-Z]+$/;  
+                        if(inputValue.match(letters)) {
+                            $(this).css('border-color','#1ab188');
+                        } else  {
+                            $(this).css('border-color','#ff0000');
+                            $(this).parent().append('<p class="text-danger">Please input alphanumeric characters only</p>');
+                        }  
+                        break;
+                    case 'lastName':
+                    case 'firstName':
+                        var letters = /^[a-zA-Z]+$/;  
+                        if(inputValue.match(letters)) {
+                            $(this).css('border-color','#1ab188');
+                        } else  {
+                            $(this).css('border-color','#ff0000');
+                            $(this).parent().append('<p class="text-danger">Input Alphabets only</p>');
+                        }  
+                        break;
+                    case 'signup_email':
+                        var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
+                        if(inputValue.match(emailPattern)) {   
+                            $(this).css('border-color','#1ab188');
+                        } else  {
+                            $(this).css('border-color','#ff0000');
+                            $(this).parent().append('<p class="text-danger">Invalid Email Format</p>');
+                        }
+                        break;
+                    case 'password':
+                        var passPattern = /^.{6,}$/;
+                        if(inputValue.match(passPattern)) {   
+                            $(this).css('border-color','#1ab188');
+                        } else {
+                            $(this).css('border-color','#ff0000');
+                            $(this).parent().append('<p class="text-danger">Invalid Password Format</p>');
+                        }
+                        break;
+                    case 'conf_password':
+                        var passPattern = /^.{6,}$/;
+                        if(inputValue.match(passPattern)) {   
+                            var password = $(this).parent().parent().find("input[name='password']").val();
+                            if(password == inputValue){
+                                $(this).css('border-color','#1ab188');                                
+                            } else {
+                              $(this).css('border-color','#ff0000');
+                              $(this).parent().append('<p class="text-danger">Password didn\'t matched, try again</p>');              
+                            }
+                        } else {
+                            $(this).css('border-color','#ff0000');
+                            $(this).parent().append('<p class="text-danger">Invalid Password Format</p>');
+                        }
+                        break;
+                }
+              return false;
             });
         </script>
     </body>
