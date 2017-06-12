@@ -540,6 +540,20 @@ class User extends CI_Controller {
         exit();
     }
 
+    function autocheck() {
+        $data = $_POST;
+        $result = $this->User_model->autocheck($data);
+        $response = array();
+        if (!empty($result)) {
+            $response['success'] = FALSE;
+            $response['msg'] = $data['value'] . " exist, please choose diffrent " . $data['key'];
+        } else {
+            $response['success'] = TRUE;
+            $response['msg'] = $data['value'] . " available";
+        }
+        echo json_encode($response);
+    }
+
 }
 
 ?>

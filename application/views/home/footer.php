@@ -155,7 +155,7 @@
                   switch(name) {
                         case 'message':
                         case 'name':
-                            var letters = /^[0-9a-zA-Z]+$/;  
+                            var letters = /^[a-z\d\-_\s]+$/i;  
                             if(inputValue.match(letters)) {
                                 errors--;
                             } else  {
@@ -246,7 +246,7 @@
                     case 'UserName':
                         var letters = /^[0-9a-zA-Z]+$/;  
                         if(inputValue.match(letters)) {
-                            $(this).css('border-color','#1ab188');
+                            autocheck(name, inputValue, this);
                         } else  {
                             $(this).css('border-color','#ff0000');
                             $(this).parent().append('<p class="text-danger">Please input alphanumeric characters only</p>');
@@ -262,10 +262,10 @@
                             $(this).parent().append('<p class="text-danger">Input Alphabets only</p>');
                         }  
                         break;
-                    case 'signup_email':
+                    case 'Email':
                         var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
                         if(inputValue.match(emailPattern)) {   
-                            $(this).css('border-color','#1ab188');
+                           autocheck(name, inputValue, this);
                         } else  {
                             $(this).css('border-color','#ff0000');
                             $(this).parent().append('<p class="text-danger">Invalid Email Format</p>');
@@ -298,6 +298,25 @@
                 }
               return false;
             });
+
+            function autocheck(name, Value, element) {
+                $.ajax({
+                    type: "post",
+                    url: '<?php echo site_url('User/autocheck') ?>',
+                    data: {'key':name, 'value':Value},
+                    success: function (data) {
+                        var obj = $.parseJSON(data);
+                        if (obj.success === false) {
+                             $(element).css('border-color','#ff0000');
+                            $(element).parent().append('<p class="text-danger">'+obj.msg+'</p>');                       
+                        } else {
+                            $(element).css('border-color','#1ab188');                                
+                        }
+                    }
+                });
+                 
+            }
+
         </script>
     </body>
 </html>

@@ -131,7 +131,7 @@
                                     </div>
 
                                     <div class="field-wrap">
-                                        <input type="email" placeholder="Email Address" name="signup_email" id="registerEmail"  required autocomplete="off"/>
+                                        <input type="email" placeholder="Email Address" name="Email" id="registerEmail"  required autocomplete="off"/>
                                     </div>
 
                                     <div class="field-wrap">
