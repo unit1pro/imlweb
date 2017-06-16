@@ -8,6 +8,11 @@
         <title>Indian Music Lab</title>
         <link rel="icon" type="image/png" href="<?php echo base_url() ?>front/images/logo-red.png">
 
+        <meta property="fb:app_id" content="113869198637480">
+        <meta property="og:site_name" content="Facebook for Developers">
+        <meta property="og:title" content="Facebook Developer Documentation - Facebook for Developers">
+        <meta property="og:type" content="website">
+
         <!-- Bootstrap -->
         <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

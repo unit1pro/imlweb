@@ -143,7 +143,7 @@
               
               var formid = $(this).parent().parent().parent().attr('id');
 
-              if( formid !== 'signup'){
+              if( formid !== 'signup') {
                   var errors = 4;
                   var name = this.name;
                   var inputValue = $(this).val();
@@ -151,7 +151,7 @@
                     $('#err_msg').text('Please Enter value in this field');
                     $('#errorModal').modal('show');
                     return false;
-                  }
+                }
                   switch(name) {
                         case 'message':
                         case 'name':
@@ -174,7 +174,7 @@
                             break;
                         case 'phone':
                             var phonePattern = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;  
-                            if(inputValue.match(phonePattern)) {   
+                            if(inputValue.match(phonePattern)) {
                                 errors--;
                             } else  {
                                 $('#err_msg').text('Please input valid phone number only');
@@ -216,6 +216,7 @@
                 } else {
                     $("#loginUserName").css('border-color','#ffffff');
                 }
+                
                 var password = $("#loginPassword").val();
                 if( password === '' ) {
                     $("#loginPassword").append('<p>Please Provide Username.</p>');
@@ -300,6 +301,7 @@
             });
 
             function autocheck(name, Value, element) {
+
                 $.ajax({
                     type: "post",
                     url: '<?php echo site_url('User/autocheck') ?>',
@@ -307,10 +309,10 @@
                     success: function (data) {
                         var obj = $.parseJSON(data);
                         if (obj.success === false) {
-                             $(element).css('border-color','#ff0000');
+                            $(element).css('border-color','#ff0000');
                             $(element).parent().append('<p class="text-danger">'+obj.msg+'</p>');                       
                         } else {
-                            $(element).css('border-color','#1ab188');                                
+                            $(element).css('border-color','#1ab188');
                         }
                     }
                 });

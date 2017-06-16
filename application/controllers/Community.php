@@ -507,4 +507,17 @@ class Community extends CI_Controller {
         exit();
     }
 
+    public function sharer() {
+        // $session_data = $this->session->userdata('user_data');
+        // $user_id = $session_data['UID'];
+        // $data['page_title'] = "Indian Music Lab";
+        // if ($user_id) {
+        //     $data['user_data'] = $this->User_model->get_single($user_id);
+        // } else {
+        //     $data['profile_data'] = $session_data;
+        // }
+        $data['page'] = "sharer";
+        $this->load->view('front/page', $data);
+    } 
+
 }

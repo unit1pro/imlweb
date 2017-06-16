@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2017 at 11:40 AM
+-- Generation Time: Jun 16, 2017 at 11:55 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -627,7 +627,7 @@ ALTER TABLE `song_cat`
 -- AUTO_INCREMENT for table `usermain`
 --
 ALTER TABLE `usermain`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `usersuspensionlog`
 --

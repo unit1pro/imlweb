@@ -50,10 +50,27 @@
 //  if (scroll >= 100) sticky.addClass('fixed');
 //  else sticky.removeClass('fixed');
 //          });
-
-
-
     });
+
+    $(document).ready(function() {
+      $.ajaxSetup({ cache: true });
+      $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+        FB.init({
+          appId: '121648458423604',
+          version: 'v2.9' // or v2.1, v2.2, v2.3, ...
+        });  
+
+        $(".shareBtn").on('click', function(event){
+            FB.ui({
+                method: 'share',
+                display: 'popup',
+                // href: 'https://developers.facebook.com/docs/',
+                href: '<?php echo site_url('Community/sharer/') ?>',
+              }, function(response){});
+        });
+      });
+    });
+
 </script> 
 <script>
     // this is important for IEs
@@ -458,6 +475,9 @@
                             if (comments.like_count) {
                                 html += comments.like_count + ' Likes ';
                             }
+                            // html += '<i class="fa fa-eye " aria-hidden="true">Open to Share</i>';
+                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true"> Share</i>';
+                            // html += '<div class="shareBtn btn btn-success clearfix">Share</div>';
                             html += '</span>';
                             html += '</div>';
                         } else {
@@ -470,6 +490,9 @@
                             if (comments.like_count) {
                                 html += comments.like_count + ' Likes ';
                             }
+                            // html += '<i class="fa fa-eye" aria-hidden="true"> Open to Share</i>';
+                            // html += '<div class="shareBtn btn btn-success clearfix">Share</div>';
+                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true"> Share</i>';
                             html += '</span>';
                             html += '</div>';
                         }
