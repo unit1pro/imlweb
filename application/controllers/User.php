@@ -95,6 +95,7 @@ class User extends CI_Controller {
                 $this->session->set_userdata('alert_msg', '');
                 redirect($uri, 'refresh');
             } else {
+                // print "<pre>";print_r($uri);exit;
                 $this->session->set_flashdata('alert_msg', 'Wrong Username or password');
                 // $this->session->set_userdata('alert_msg', 'Wrong Username or password');
                 redirect($uri, 'refresh');

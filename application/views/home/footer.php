@@ -250,12 +250,12 @@
                             autocheck(name, inputValue, this);
                         } else  {
                             $(this).css('border-color','#ff0000');
-                            $(this).parent().append('<p class="text-danger">Please input alphanumeric characters only</p>');
+                            $(this).parent().append('<p class="text-danger">Please input alphanumeric characters only without spaces.</p>');
                         }  
                         break;
                     case 'lastName':
                     case 'firstName':
-                        var letters = /^[a-zA-Z]+$/;  
+                        var letters = /^[a-zA-Z ]*$/;  
                         if(inputValue.match(letters)) {
                             $(this).css('border-color','#1ab188');
                         } else  {

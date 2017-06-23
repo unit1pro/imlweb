@@ -1,8 +1,3 @@
-<?php  
-//print_r($songs_data);
-//print_r($expression);
-?>
-
 <div class="">
          <div class="col-xs-12 col-md-3 nopadding-left mt50">
             <div class="left-panel">
@@ -36,7 +31,7 @@
          
           <div class="col-xs-12 col-md-6 mt50">
 <!--             <div class="breadcrumb-nav">
-             <span><img src="<?php echo base_url() ?>front/images/section-icon.png"/></span>
+             <span><img src="<?php// echo base_url() ?>front/images/section-icon.png"/></span>
              <a href="#">Community</a> <span>&gt;</span> <span>User</span>             
              </div>-->
              
@@ -65,20 +60,20 @@
                       </a>
                      <div class="singerName">Shikhar Kumar<br>Coming Soon</div>
                   </div>
-                      <?php foreach ($songs_data as $song) { ?>
+                      <?php// foreach ($songs_data as $song) { ?>
 <!--                  <div class="singerPic">
-                      <a href="////<?php echo site_url('Video/index/') . $song['ID'] ?>">
-                     <img src="////<?php echo base_url('uploads/images') . '/' . $song['Image'] ?>" class="album_image">
+                      <a href="////<?php //echo site_url('Video/index/') . $song['ID'] ?>">
+                     <img src="////<?php// echo base_url('uploads/images') . '/' . $song['Image'] ?>" class="album_image">
                       </a>
-                     <div class="singerName">////<?php echo $song['Song_Title'] ?></div>
+                     <div class="singerName">////<?php //echo $song['Song_Title'] ?></div>
                   </div>-->
-                     <?php } ?>
+                     <?php// } ?>
 <!--                  <div class="singerPic">
-                     <img src="<?php echo base_url() ?>front/images/singer-pic-2.jpg">
+                     <img src="<?php //echo base_url() ?>front/images/singer-pic-2.jpg">
                      <div class="singerName">Shikhar</div>
                   </div>
                   <div class="singerPic">
-                     <img src="<?php echo base_url() ?>front/images/singer-pic-3.jpg">
+                     <img src="<?php// echo base_url() ?>front/images/singer-pic-3.jpg">
                      <div class="singerName">Shikhar</div>
                   </div>-->
              </div>
@@ -93,9 +88,7 @@
 <div class="md-container md-effect-12" id="modal-12">
     <div class="md-content post_views_container" >
         <?php if (!isset($user_data[0]['UID'])) {?>
-        <div class="row" style="    margin-top: 126px;
-    background: #fff;
-    border-radius: 20px;">
+        <div class="row" style="margin-top: 126px; background: #fff; border-radius: 20px;">
                 <div class="col-md-8">
         <h4> Please login to post</h4>
                 </div>
@@ -123,7 +116,7 @@
                     <!-- The file input-button span is used to style the file input field as button -->
                     <span class="btn fileinput-button" style="color: #ffffff;">
                         <i class="glyphicon glyphicon-plus"></i>
-                        <span >Click To Add files Or Drop Your Files Here</span>
+                        <span>Click To Add files Or Drop Your Files Here</span>
                     </span>
                 </div>
 

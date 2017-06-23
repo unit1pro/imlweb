@@ -3,7 +3,7 @@
                 <img src="<?php echo site_url() ?>front/assets/images/imlanimated.webp">
             </div>
         </div>-->
-<section >
+<section>
     <div class="">
         <div class="wrapper">
             <div class="artist-box col-sm-12" style="padding-right: 0;padding-left: 0;">

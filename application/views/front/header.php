@@ -125,7 +125,7 @@
                             <h1>Indian Music Lab</h1>
 
                             <ul class="tab-group">
-                                <li class="tab "><a href="#signup" class="signup-front">Sign Up</a></li>
+                                <li class="tab"><a href="#signup" class="signup-front">Sign Up</a></li>
                                 <li class="tab active"><a href="#login" class="login-front">Log In</a></li>
                             </ul>
 

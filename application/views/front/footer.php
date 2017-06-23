@@ -476,7 +476,7 @@
                                 html += comments.like_count + ' Likes ';
                             }
                             // html += '<i class="fa fa-eye " aria-hidden="true">Open to Share</i>';
-                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true"> Share</i>';
+                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true" data-postId="'+comments.ID+'"> Share</i>';
                             // html += '<div class="shareBtn btn btn-success clearfix">Share</div>';
                             html += '</span>';
                             html += '</div>';
@@ -492,7 +492,7 @@
                             }
                             // html += '<i class="fa fa-eye" aria-hidden="true"> Open to Share</i>';
                             // html += '<div class="shareBtn btn btn-success clearfix">Share</div>';
-                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true"> Share</i>';
+                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true" data-postId="'+comments.COM_ID+'"> Share</i>';
                             html += '</span>';
                             html += '</div>';
                         }
@@ -1050,6 +1050,97 @@ function get_post_by_user(data) {
             }
 
         });
+    }
+
+    $("#signup input").focusout(function(event){
+      event.preventDefault();
+
+      var name = this.name;
+      var inputValue = $(this).val();
+      if(!inputValue){
+        var presence = $(this).parent().find('p');
+        if(presence.length === 0){
+            $(this).css('border-color','#ff0000');
+            $(this).parent().append('<p class="text-danger">This field is mandatory!!!</p>');
+        }
+        return false;                    
+      } else {
+        $(this).parent().find('p').remove();
+      }
+      switch(name) {
+            case 'UserName':
+                var letters = /^[0-9a-zA-Z]+$/;  
+                if(inputValue.match(letters)) {
+                    autocheck(name, inputValue, this);
+                } else  {
+                    $(this).css('border-color','#ff0000');
+                    $(this).parent().append('<p class="text-danger">Please input alphanumeric characters only without spaces.</p>');
+                }  
+                break;
+            case 'lastName':
+            case 'firstName':
+                var letters = /^[a-zA-Z ]*$/;  
+                if(inputValue.match(letters)) {
+                    $(this).css('border-color','#1ab188');
+                } else  {
+                    $(this).css('border-color','#ff0000');
+                    $(this).parent().append('<p class="text-danger">Input Alphabets only</p>');
+                }  
+                break;
+            case 'Email':
+                var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
+                if(inputValue.match(emailPattern)) {   
+                   autocheck(name, inputValue, this);
+                } else  {
+                    $(this).css('border-color','#ff0000');
+                    $(this).parent().append('<p class="text-danger">Invalid Email Format</p>');
+                }
+                break;
+            case 'password':
+                var passPattern = /^.{6,}$/;
+                if(inputValue.match(passPattern)) {   
+                    $(this).css('border-color','#1ab188');
+                } else {
+                    $(this).css('border-color','#ff0000');
+                    $(this).parent().append('<p class="text-danger">Invalid Password Format</p>');
+                }
+                break;
+            case 'conf_password':
+                var passPattern = /^.{6,}$/;
+                if(inputValue.match(passPattern)) {   
+                    var password = $(this).parent().parent().find("input[name='password']").val();
+                    if(password == inputValue){
+                        $(this).css('border-color','#1ab188');                                
+                    } else {
+                      $(this).css('border-color','#ff0000');
+                      $(this).parent().append('<p class="text-danger">Password didn\'t matched, try again</p>');              
+                    }
+                } else {
+                    $(this).css('border-color','#ff0000');
+                    $(this).parent().append('<p class="text-danger">Invalid Password Format</p>');
+                }
+                break;
+        }
+      return false;
+    });
+
+    function autocheck(name, Value, element) {
+
+        $.ajax({
+            type: "post",
+            url: '<?php echo site_url('User/autocheck') ?>',
+            data: {'key':name, 'value':Value},
+            success: function (data) {
+                var obj = $.parseJSON(data);
+                if (obj.success === false) {
+                    $(element).css('border-color','#ff0000');
+                    $(element).parent().append('<p class="text-danger">'+obj.msg+'</p>');                       
+                } else {
+                    $(element).css('border-color','#1ab188');
+                }
+            }
+        });
+         
     }
 
 
