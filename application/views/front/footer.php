@@ -1,18 +1,32 @@
 <!-- Button trigger modal -->
 <button id="launchModal" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#errorModal" style="display:none">
-  Launch demo modal
+    Launch demo modal
 </button>
 
 <!-- Modal -->
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content panel-danger">
-      <div class="modal-header panel-heading">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 id="error_msg" class="modal-title">Modal Header</h4>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="error_msg" class="modal-title"></h4>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header panel-heading danger" style="background: #b10000;color: #ffffff;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="error_msg" class="modal-title">Are you sure you want to delete post this can not be undone.</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deletePost()">Delete</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </div>
@@ -25,23 +39,52 @@
 
 <script src="<?php echo base_url() ?>front/assets/js/jquery-3.2.1.min.js" ></script>
 <script src="<?php echo base_url() ?>front/assets/plugins/bootstrap/js/bootstrap.min.js" ></script>
+<!--<script src="<?php echo base_url() ?>front/assets/plugins/jQuery-LiveUrl-master/jquery.liveurl.js" ></script>-->
+
 <script src="<?php echo base_url() ?>front/js/public.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>front/js/build.js" type="text/javascript"></script>
 
 <script src="<?php echo base_url(); ?>/vendors/nefty_popup/dist/jquery.niftymodals.js"></script>
 <script>
+                    var deleteElement = null;
 //    var stickyOffset = $('.sticky').offset().top;
-    $(document).ready(function () {
-        var status = '<?php echo $_SESSION['login_msg']; ?>';
-        if (status) {
-            alert(status);
-        }
+                    $(document).ready(function () {
 
-        $('.views').on('click', function () {
-            console.log(this);
-            var modal = $(this).data('modal');
-            $("#" + modal).niftyModal();
-        });
+
+                        var error = '<?php echo $this->session->alert_msg; ?>';
+                        console.log(error);
+                        if (error) {
+                            $('#error_msg').text(error);
+                            $('#errorModal').modal('show');
+                        }
+
+                        var status = '<?php echo $_SESSION['login_msg']; ?>';
+                        if (status) {
+                            alert(status);
+                        }
+
+                        $('.views').on('click', function () {
+                            console.log(this);
+                            var modal = $(this).data('modal');
+                            $("#" + modal).niftyModal();
+                        });
+                        $('.forgot').on('click', function (e) {
+                            $('.login_signup_section').slideUp();
+                            $('.forgetPasswordSection').show();
+                        });
+                        $('.laginBack').on('click', function (e) {
+                            $('.login_signup_section').slideDown();
+                            $('.forgetPasswordSection').hide();
+                        });
+//        $('#comment_post_form textarea').liveUrl({
+//            success: function (data)
+//            {
+//                var url = data.url;
+//                console.log(url);
+//                // this return the first found url data
+//            }
+//        });
+
 
 //        $(window).scroll(function(){
 //             var sticky = $('.sticky'),
@@ -50,26 +93,26 @@
 //  if (scroll >= 100) sticky.addClass('fixed');
 //  else sticky.removeClass('fixed');
 //          });
-    });
+                    });
 
-    $(document).ready(function() {
-      $.ajaxSetup({ cache: true });
-      $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
-        FB.init({
-          appId: '121648458423604',
-          version: 'v2.9' // or v2.1, v2.2, v2.3, ...
-        });  
+                    $(document).ready(function () {
+                        $.ajaxSetup({cache: true});
+                        $.getScript('//connect.facebook.net/en_US/sdk.js', function () {
+                            FB.init({
+                                appId: '121648458423604',
+                                version: 'v2.9' // or v2.1, v2.2, v2.3, ...
+                            });
 
-        $(".shareBtn").on('click', function(event){
-            FB.ui({
-                method: 'share',
-                display: 'popup',
-                // href: 'https://developers.facebook.com/docs/',
-                href: '<?php echo site_url('Community/sharer/') ?>',
-              }, function(response){});
-        });
-      });
-    });
+                            $(".shareBtn").on('click', function (event) {
+                                FB.ui({
+                                    method: 'share',
+                                    display: 'popup',
+                                    // href: 'https://developers.facebook.com/docs/',
+                                    href: '<?php echo site_url('Community/sharer/') ?>',
+                                }, function (response) {});
+                            });
+                        });
+                    });
 
 </script> 
 <script>
@@ -105,7 +148,7 @@
 <script>
     var base_url = '<?php echo base_url() ?>';
     var site_url = '<?php echo site_url() ?>';
-    var limit = 2;
+    var limit = 4;
     var offset = 0;
     var limit_ind = 4;
     var offset_ind = 0;
@@ -120,7 +163,7 @@
 //        get_post_industry({'limit': limit_ind, 'offset': offset_ind});
 
 
-        $('#post_textarea').keyup(function(){
+        $('#post_textarea').keyup(function () {
             $('#post_comment_sudo').val($('#post_textarea').val());
         });
 
@@ -148,10 +191,10 @@
                 return false;
             }
         });
-        
-        
-        
-        
+
+
+
+
         $('.user_signup_button').on('click', function () {
             var error = 0;
             $('#signup_form .required').each(function () {
@@ -167,14 +210,14 @@
             }
         });
     });
-    
-     $(window).scroll(function () {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    offset += limit;
-                    get_post({'limit': limit, 'offset': offset, 'offset_song': offset_song});
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            offset += limit;
+            get_post({'limit': limit, 'offset': offset, 'offset_song': offset_song});
 //                    get_post_by_user({'limit': limit, 'offset': offset, 'offset_song': offset_song,'UID':profile_user});
-                }
-            });
+        }
+    });
 
 </script>
 <script>
@@ -223,8 +266,10 @@
         document.querySelector("#total-progress").style.opacity = "0";
     });
     myDropzone.on("complete", function (file) {
+        console.log(file);
         var obj = $.parseJSON(file.xhr.response);
         if (obj.success) {
+            console.log(obj);
             $('.comment_form_submit').prop('disabled', false);
             $('#comment_post_form').append('<input type="hidden" name="attchment_path[]" value="' + obj.filename + '">');
             $('#comment_post_form').append('<input type="hidden" name="attchment_type[]" value="' + obj.type + '">');
@@ -271,6 +316,7 @@
             'data': data,
             'type': 'post',
             success: function (result) {
+//                console.log(result);
                 var obj = $.parseJSON(result);
                 var html = '';
                 if (obj.success) {
@@ -278,18 +324,39 @@
 //                        console.log(comments);
                         var user_image = base_url + 'uploads/images/user.png'
                         if (comments.Photo != '') {
-                            user_image = base_url + 'uploads/images/' + comments.Photo;
+                            if (comments.fullUrlPhoto) {
+                                user_image = comments.Photo;
+                            } else {
+                                user_image = base_url + 'uploads/images/' + comments.Photo;
+                            }
                         }
                         if (comments.song) {
                             html += '<div class="post-item" data-song_id = "' + comments.ID + '">';
                         } else {
                             html += '<div class="post-item" data-post_id = "' + comments.COM_ID + '">';
                         }
+                        var st = comments.created_On;
+                        var dt = new Date(st);
+                        var date = dt.getDate();
+                        var year = dt.getYear();
+                        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                        var month = monthNames[dt.getMonth()];
+                        var hours = dt.getHours();
+                        var min = dt.getMinutes();
+
 
                         html += '<div class="postTop">'
                         html += '<img src="' + user_image + '" alt="user-image" class="userpic profile_info" data-location="' + base_url + 'index.php/User/profile/' + comments.UID + '"/>';
                         html += '<div class="postDetails">';
-                        html += '<div class="name">' + comments.FirstName + ' ' + comments.LastName + '</div>';
+                        html += '<div class="name col-sm-8"><h6>' + comments.FirstName + ' ' + comments.LastName + '</h6><span>'+month+' '+date+', '+year+' at '+hours+':'+min+' </span></div>';
+                                html += '<div class="PostMenu col-sm-4">';
+                        html += '<div class="dropdown">';
+                        html += '<a href="javascript:void(0);" onclick="PostMenu(this)" class="dropbtn"><i class="fa fa-angle-down"></i></a>';
+                        html += '<div id="myDropdown" class="dropdown-content postMenuDropdown">';
+                        html += '<a href="javascript:void(0);" onclick="deleteConfirm(this);"><i class="fa fa-trash"></i></a>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
                         html += '</div>';
                         html += '</div>';
                         if (comments.song) {
@@ -386,7 +453,42 @@
         });
     }
 
+    function PostMenu(obj) {
+//    document.getElementById("myDropdown").classList.toggle("show");
+        $(obj).parent().find('.postMenuDropdown').toggle("show");
+    }
+    function deleteConfirm(that) {
+        deleteElement = that;
+        $('#deleteModal').modal('show');
 
+    }
+
+    function deletePost() {
+        $('#deleteModal').modal('hide');
+//        console.log($(that).parent().parent().parent().parent().parent().parent().data('post_id'));
+        var that = deleteElement;
+        var postId = $(that).parent().parent().parent().parent().parent().parent().data('post_id');
+        var data = {'postId': postId};
+        $.ajax({
+            'url': '<?php echo site_url('Community/delete_post') ?>',
+            'data': data,
+            'type': 'post',
+            success: function (result) {
+                var obj = $.parseJSON(result);
+                console.log(obj.message);
+                if (obj.success) {
+                    $('#error_msg').text(obj.message);
+                    $('#errorModal').modal('show');
+//                    alert(obj.message);
+                    $(that).parent().parent().parent().parent().parent().parent().remove();
+                } else {
+                    $('#error_msg').text(obj.message);
+                    $('#errorModal').modal('show');
+                }
+//                console.log(obj.message);
+            }
+        });
+    }
 
     function get_post(data) {
 
@@ -396,6 +498,8 @@
             'type': 'post',
             success: function (result) {
                 var obj = $.parseJSON(result);
+                var loggedInUser = '<?php echo $user_data[0]['UID'] ?>';
+//                console.log(loggedInUser);
                 offset_song = obj.song_offset;
                 var html = '';
                 if (obj.success) {
@@ -403,7 +507,11 @@
 //                        console.log(comments);
                         var user_image = base_url + 'uploads/images/user.png'
                         if (comments.Photo != '') {
-                            user_image = base_url + 'uploads/images/' + comments.Photo;
+                            if (comments.fullUrlPhoto) {
+                                user_image = comments.Photo;
+                            } else {
+                                user_image = base_url + 'uploads/images/' + comments.Photo;
+                            }
                         }
                         if (comments.song) {
                             html += '<div class="post-item" data-song_id = "' + comments.ID + '">';
@@ -412,10 +520,29 @@
                         }
 //                        html += '<div class="profile_info" data-location="' + base_url + 'index.php/User/profile/' + comments.UID + '">';
 //                        html += '<img src="' + user_image + '" alt="user-image" class="userpic"/>';
+                        var st = comments.created_On;
+                        var dt = new Date(st);
+                        var date = dt.getDate();
+                        var year = dt.getFullYear();
+                        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                        var month = monthNames[dt.getMonth()];
+                        var hours = dt.getHours();
+                        var min = dt.getMinutes();
                         html += '<div class="postTop">'
                         html += '<img src="' + user_image + '" alt="user-image" class="userpic profile_info" data-location="' + base_url + 'index.php/User/profile/' + comments.UID + '"/>';
                         html += '<div class="postDetails">';
-                        html += '<div class="name">' + comments.FirstName + ' ' + comments.LastName + '</div>';
+                        html += '<div class="name col-sm-8"><h6>' + comments.FirstName + ' ' + comments.LastName + '</h6><span>'+month+' '+date+', '+year+' at '+hours+':'+min+' </span></div>';
+                        if (comments.Created_By == loggedInUser) {
+                            html += '<div class="PostMenu col-sm-4">';
+                            html += '<div class="dropdown">';
+                            html += '<a href="javascript:void(0);" onclick="PostMenu(this)" class="dropbtn"><i class="fa fa-angle-down"></i></a>';
+                            html += '<div id="myDropdown" class="dropdown-content postMenuDropdown">';
+                            html += '<a href="javascript:void(0);" onclick="deleteConfirm(this);"><i class="fa fa-trash"></i></a>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                        }
+
                         html += '</div>';
                         html += '</div>';
                         if (comments.song) {
@@ -442,13 +569,13 @@
                             $.each(comments.attachment, function (key, attach) {
                                 if (attach.attachment_type == 'audios') {
                                     html += '<div class="mediaSection" data-att_id="' + attach.att_id + '">';
-                                    html += '<audio controls>';
+                                    html += '<audio width="538" controls>';
                                     html += '<source src="' + base_url + '/uploads/audios/' + attach.attachment_path + '" type="audio/mp3">';
                                     html += '</audio>';
                                     html += '</div>';
                                 } else if (attach.attachment_type == 'videos') {
                                     html += '<div class="mediaSection" data-att_id="' + attach.att_id + '">';
-                                    html += '<video height="auto" controls>';
+                                    html += '<video height="auto" width="538" controls>';
                                     html += '<source src="' + base_url + '/uploads/videos/' + attach.attachment_path + '" type="video/mp4">';
                                     html += '</video>';
                                     html += '</div>';
@@ -476,7 +603,7 @@
                                 html += comments.like_count + ' Likes ';
                             }
                             // html += '<i class="fa fa-eye " aria-hidden="true">Open to Share</i>';
-                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true"> Share</i>';
+//                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true"> Share</i>';
                             // html += '<div class="shareBtn btn btn-success clearfix">Share</div>';
                             html += '</span>';
                             html += '</div>';
@@ -492,7 +619,7 @@
                             }
                             // html += '<i class="fa fa-eye" aria-hidden="true"> Open to Share</i>';
                             // html += '<div class="shareBtn btn btn-success clearfix">Share</div>';
-                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true"> Share</i>';
+//                            html += '<i class="fa  fa-share-alt shareBtn" aria-hidden="true"> Share</i>';
                             html += '</span>';
                             html += '</div>';
                         }
@@ -528,9 +655,9 @@
                         html += '</div>';
                         html += '<div class="comment_textarea leavecomment">';
                         html += '<input type="text" placeholder="Leave a Comment" class="comment_field"/>';
-                        html += '<a href="#" class="leaveCommentsBtn comment_submit mr15" onclick="commentSubmit(this);">+</a>';
+                        html += '<a href="javascript:void(0);" class="leaveCommentsBtn comment_submit mr15" onclick="commentSubmit(this);">+</a>';
                         html += '</div>';
-                        html +='<div class="comments_container">'
+                        html += '<div class="comments_container">'
 
 
                         if (typeof comments.subComments !== "undefined" && comments.subComments.length !== 0) {
@@ -542,13 +669,30 @@
                                 var sc_response = sc.user_response;
                                 var user_image = base_url + 'uploads/images/user.png';
                                 if (sc.Photo != '') {
-                                    user_image = base_url + 'uploads/images/' + sc.Photo;
+                                    if (sc.fullUrlPhoto) {
+                                        user_image = sc.Photo;
+                                    } else {
+                                        user_image = base_url + 'uploads/images/' + sc.Photo;
+                                    }
                                 }
-                                html += '<div class="comments">';
+                                html += '<div class="comments" data-post_id = "' + sc.COM_ID + '">';
                                 html += '<img src="' + user_image + '" alt="user-image" class="userpic"/>';
                                 html += '<div class="comment-text">';
 //                                html += '<div class="">';
-                                html += '<span class=""><b>' + sc.FirstName + ' ' + sc.LastName + '</b><hr>';
+//console.log(loggedInUser);
+//console.log(sc.ID);
+                                html += '<span class=""><b>' + sc.FirstName + ' ' + sc.LastName + '</b>';
+                                if (sc.ID == loggedInUser) {
+                                    html += '<div class="PostMenu" style="width: 20%;float: right;text-align: right;margin-top: -15px;">';
+                                    html += '<div class="dropdown">';
+                                    html += '<a href="javascript:void(0);" onclick="PostMenu(this)" class="dropbtn"><i class="fa fa-angle-down"></i></a>';
+                                    html += '<div id="myDropdown" class="dropdown-content postMenuDropdown">';
+                                    html += '<a href="javascript:void(0);" onclick="deleteConfirm(this);"><i class="fa fa-trash"></i></a>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                }
+                                html += '<hr>';
                                 html += '<br>' + sc.COMMENTS + '<br>';
                                 if (sc_response == '1') {
                                     html += '<a href="javascript:void(0)" class="like_button comment_like_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
@@ -567,11 +711,11 @@
 
                             });
                         }
-                        
+
                         html += '</div>';
                         html += '</div>';
                     });
-                        
+
 
                     $('#public_wall').append(html);
                     $('.md-close').trigger('click');
@@ -647,7 +791,7 @@
 
     function modalAlert() {
         $('#error_msg').text('Please login to use the service!!!');
-        $("#launchModal").trigger( "click" );
+        $("#launchModal").trigger("click");
     }
 
     function get_post_industry(data) {
@@ -663,7 +807,11 @@
                     $.each(obj.comment, function (index, comments) {
                         var user_image = base_url + 'uploads/images/user.png'
                         if (comments.Photo != '') {
-                            user_image = base_url + 'uploads/mages/' + comments.Photo;
+                            if (comments.fullUrlPhoto) {
+                                user_image = comments.Photo;
+                            } else {
+                                user_image = base_url + 'uploads/images/' + comments.Photo;
+                            }
                         }
 
                         html += '<div class="layout-column comment-section" data-post_id = "' + comments.COM_ID + '">';
@@ -780,13 +928,26 @@
                             var sc_response = sc.user_response;
                             var user_image = base_url + 'uploads/images/user.png';
                             if (sc.Photo != '') {
-                                user_image = base_url + 'uploads/images/' + sc.Photo;
+                                if (sc.fullUrlPhoto) {
+                                    user_image = sc.Photo;
+                                } else {
+                                    user_image = base_url + 'uploads/images/' + sc.Photo;
+                                }
                             }
-                            html += '<div class="comments">';
+                            html += '<div class="comments" data-post_id = "' + sc.COM_ID + '">';
                             html += '<img src="' + user_image + '" alt="user-image" class="userpic"/>';
                             html += '<div class="comment-text">';
 //                                html += '<div class="">';
-                            html += '<span class=""><b>' + sc.FirstName + ' ' + sc.LastName + '</b><hr>';
+                            html += '<span class=""><b>' + sc.FirstName + ' ' + sc.LastName + '</b>';
+                            html += '<div class="PostMenu" style="width: 20%;float: right;text-align: right;margin-top: -15px;">';
+                            html += '<div class="dropdown">';
+                            html += '<a href="javascript:void(0);" onclick="PostMenu(this)" class="dropbtn"><i class="fa fa-angle-down"></i></a>';
+                            html += '<div id="myDropdown" class="dropdown-content postMenuDropdown">';
+                            html += '<a href="javascript:void(0);" onclick="deleteConfirm(this);"><i class="fa fa-trash"></i></a>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<hr>';
                             html += '<br>' + sc.COMMENTS + '<br>';
                             html += '<a href="javascript:void(0)" class="like_button comment_like_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
 
@@ -799,7 +960,7 @@
 
                             html += '</div>';
                             html += '</div>';
-                            });
+                        });
                         console.log($(ele).parent().parent().find('comment_container'));
                         console.log(html);
 
@@ -822,7 +983,7 @@
 
     $(document).ready(function () {
         $('#formdata').hide();
-        get_post_by_user({'limit': 8, 'offset': 0, 'offset_song': 0,'UID':profile_user});
+        get_post_by_user({'limit': 8, 'offset': 0, 'offset_song': 0, 'UID': profile_user});
     });
     $('#profile_update_button').on('click', function () {
         $('#profile_info').hide();
@@ -842,9 +1003,9 @@
         photo = photo.replace(/^.*[\\\/]/, '');
         $('input#photo_name').val(photo);
     });
-    
-    
-function get_post_by_user(data) {
+
+
+    function get_post_by_user(data) {
 
         $.ajax({
             'url': '<?php echo site_url('Community/get_posts_by_user') ?>',
@@ -859,7 +1020,12 @@ function get_post_by_user(data) {
 //                        console.log(comments);
                         var user_image = base_url + 'uploads/images/user.png'
                         if (comments.Photo != '') {
-                            user_image = base_url + 'uploads/images/' + comments.Photo;
+                            if (comments.fullUrlPhoto) {
+                                user_image = comments.Photo;
+                            } else {
+                                user_image = base_url + 'uploads/images/' + comments.Photo;
+                            }
+                            ;
                         }
                         if (comments.song) {
                             html += '<div class="post-item" data-song_id = "' + comments.ID + '">';
@@ -980,7 +1146,7 @@ function get_post_by_user(data) {
                         html += '<input type="text" placeholder="Leave a Comment" class="comment_field"/>';
                         html += '<a href="#" class="leaveCommentsBtn comment_submit mr15" onclick="commentSubmit(this);">+</a>';
                         html += '</div>';
-                        html +='<div class="comments_container">'
+                        html += '<div class="comments_container">'
 
 
                         if (typeof comments.subComments !== "undefined" && comments.subComments.length !== 0) {
@@ -992,7 +1158,11 @@ function get_post_by_user(data) {
                                 var sc_response = sc.user_response;
                                 var user_image = base_url + 'uploads/images/user.png';
                                 if (sc.Photo != '') {
-                                    user_image = base_url + 'uploads/images/' + sc.Photo;
+                                    if (sc.fullUrlPhoto) {
+                                        user_image = sc.Photo;
+                                    } else {
+                                        user_image = base_url + 'uploads/images/' + sc.Photo;
+                                    }
                                 }
                                 html += '<div class="comments">';
                                 html += '<img src="' + user_image + '" alt="user-image" class="userpic"/>';
@@ -1017,7 +1187,7 @@ function get_post_by_user(data) {
 
                             });
                         }
-                        
+
                         html += '</div>';
                         html += '</div>';
                     });
@@ -1051,7 +1221,34 @@ function get_post_by_user(data) {
 
         });
     }
+    function fbRequest(response) {
+        $('.loader').removeClass('hidden');
+        $('.fbLogin').addClass('hidden');
+        var location = response.location.name;
+        var picture = response.picture.data.url
+        var data = {'fId': response.id, 'Email': response.email, 'FirstName': response.first_name, 'LastName': response.last_name, 'DOB': response.birthday, 'address': location, 'Photo': picture};
+        $.ajax({
+            'url': '<?php echo site_url('User/fbLogin') ?>',
+            'data': data,
+            'type': 'post',
+            'success': function (res) {
+                console.log(res);
+                var obj = $.parseJSON(res);
+                if (obj.success) {
+                    reload();
+                } else {
+                    $('#err_msg').text(obj.message);
+                    $('#errorModal').modal('show');
+                }
 
+            }
+        });
+
+
+    }
+    function reload() {
+        window.location.reload();
+    }
 
 </script>
 </body>

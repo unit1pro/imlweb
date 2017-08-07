@@ -54,6 +54,15 @@ class Comment_model extends CI_Model {
         }
         return $result;
     }
+    public function get_post_by_Id($id) {
+        $sql = "SELECT iml_comment_song.*,comment_attachments.attachment_path FROM iml_comment_song LEFT JOIN comment_attachments ON iml_comment_song.COM_ID=comment_attachments.comment_id WHERE iml_comment_song.COM_ID='$id'";
+        $query = $this->db->query($sql);
+        $result = array();
+        if ($query !== FALSE && $query->num_rows() > 0) {
+            $result = $query->result_array();
+        }
+        return $result;
+    }
 
     public function get_total_like($post_id, $response_type) {
         $query = $this->db->query("SELECT * FROM $this->response_table WHERE response_on='" . $post_id['0'] . "' and response_type='" . $response_type . "'");
@@ -148,6 +157,17 @@ class Comment_model extends CI_Model {
             $result = $query->result_array();
         }
         return $result;
+    }
+    function deletePost($id){
+//        print_r($id);
+//        $condition = array(
+//            'COM_ID' => $id
+//        );
+        $this->db->delete($this->attachment_table,array('comment_id' => $id));
+        $this->db->delete($this->table, array('COM_ID' => $id));
+//        print_r($this->db->last_query());exit;
+        return true;
+
     }
 
 }

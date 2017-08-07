@@ -379,9 +379,9 @@ background : linear-gradient(180deg, rgba(204, 204, 204, 1) 0%, rgba(153, 153, 1
 .form-input{
     background : #FFFFFF;
     background : rgba(255, 255, 255, 1);
-    border-radius : 34px;
-    -moz-border-radius : 34px;
-    -webkit-border-radius : 34px;
+    border-radius : 10px;
+    -moz-border-radius : 10px;
+    -webkit-border-radius : 10px;
         margin: 30px 0;
 }
 

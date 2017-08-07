@@ -13,3 +13,39 @@
 [15-Feb-2017 06:15:57 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20131226/php_mysqli.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20131226/php_mysqli.so: cannot open shared object file: No such file or directory in Unknown on line 0
 [15-Feb-2017 06:56:16 America/Chicago] PHP Fatal error:  Call to undefined method Home_model::getVideoBySongId() in /home/indianmusiclab/community.indianmusiclab.com/application/controllers/Video.php on line 22
 [15-Feb-2017 06:56:22 America/Chicago] PHP Fatal error:  Call to undefined method Home_model::getVideoBySongId() in /home/indianmusiclab/community.indianmusiclab.com/application/controllers/Video.php on line 22
+[09-Jun-2017 04:16:05 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home/indianmusiclab/public_html/index.php on line 67
+[15-Jun-2017 23:32:55 America/Chicago] PHP Warning:  POST Content-Length of 551701241 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[15-Jun-2017 23:33:03 America/Chicago] PHP Warning:  POST Content-Length of 551701241 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[15-Jun-2017 23:33:05 America/Chicago] PHP Warning:  POST Content-Length of 551701241 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[15-Jun-2017 23:33:05 America/Chicago] PHP Warning:  POST Content-Length of 551701241 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[15-Jun-2017 23:33:05 America/Chicago] PHP Warning:  POST Content-Length of 551701241 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[15-Jun-2017 23:33:05 America/Chicago] PHP Warning:  POST Content-Length of 551701241 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[15-Jun-2017 23:57:00 America/Chicago] PHP Warning:  POST Content-Length of 551701241 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[21-Jun-2017 15:58:40 America/Chicago] PHP Warning:  POST Content-Length of 183672506 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[21-Jun-2017 22:33:43 America/Chicago] PHP Warning:  POST Content-Length of 14219324 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[22-Jun-2017 12:15:51 America/Chicago] PHP Parse error:  syntax error, unexpected '$this' (T_VARIABLE) in /home/indianmusiclab/public_html/application/controllers/User.php on line 143
+[22-Jun-2017 12:15:54 America/Chicago] PHP Parse error:  syntax error, unexpected '$this' (T_VARIABLE) in /home/indianmusiclab/public_html/application/controllers/User.php on line 143
+[25-Jun-2017 02:50:49 America/Chicago] PHP Warning:  POST Content-Length of 50467998 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[25-Jun-2017 02:58:29 America/Chicago] PHP Warning:  POST Content-Length of 50467998 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[27-Jun-2017 05:38:01 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[27-Jun-2017 05:38:15 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[27-Jun-2017 05:38:17 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[27-Jun-2017 05:38:17 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[27-Jun-2017 05:38:47 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[27-Jun-2017 05:38:48 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 15:56:22 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 15:56:23 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 15:56:26 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 15:56:27 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 15:56:27 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 15:57:35 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 15:57:37 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 16:08:11 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Jun-2017 16:08:58 America/Chicago] PHP Warning:  POST Content-Length of 8745752 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2017 03:33:04 America/Chicago] PHP Fatal error:  Class 'finfo' not found in /home/indianmusiclab/public_html/application/controllers/SingWithUs.php on line 68
+[30-Jun-2017 03:40:47 America/Chicago] PHP Fatal error:  Class 'finfo' not found in /home/indianmusiclab/public_html/application/controllers/SingWithUs.php on line 68
+[30-Jun-2017 03:46:14 America/Chicago] PHP Fatal error:  Class 'finfo' not found in /home/indianmusiclab/public_html/application/controllers/SingWithUs.php on line 68
+[30-Jun-2017 03:48:17 America/Chicago] PHP Fatal error:  Class 'finfo' not found in /home/indianmusiclab/public_html/application/controllers/SingWithUs.php on line 68
+[30-Jun-2017 03:49:11 America/Chicago] PHP Fatal error:  Class 'finfo' not found in /home/indianmusiclab/public_html/application/controllers/SingWithUs.php on line 68
+[30-Jun-2017 03:50:26 America/Chicago] PHP Fatal error:  Class 'finfo' not found in /home/indianmusiclab/public_html/application/controllers/SingWithUs.php on line 68
+[30-Jun-2017 03:51:37 America/Chicago] PHP Fatal error:  Call to a member function file() on null in /home/indianmusiclab/public_html/application/controllers/SingWithUs.php on line 70

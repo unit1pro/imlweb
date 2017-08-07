@@ -120,19 +120,11 @@
                                     <img src="<?php echo base_url() ?>front/assets/images/Harsh.jpeg" class="img-thumbnail img-fluid" style="float: left;">
                                     <div style="float: left;" class="description">
                                         <h3>Harsh Bhan</h3>
-                                        <p>Harsh Bhan is the Film Liaison of the company. All film related music operations are therefore duly coordinated by him.</p>
+                                        <p>Harsh Bhan is the Senior Consultant of the company. All film related music operations are therefore duly coordinated by him.</p>
                                     </div>
                                 </div>
                             </li>
-                            <li class="tab-link row">
-                                <div class="row">
-                                    <img src="<?php echo base_url() ?>front/assets/images/akash.jpeg" class="img-thumbnail img-fluid" style="float: left;">
-                                    <div style="float: left;" class="description">
-                                        <h3>Akash Saitwdekar</h3>
-                                        <p>Akash Saitwdekar is the video editor and post production head at Indian Music Lab. All videos pass through him.</p>
-                                    </div>
-                                </div>
-                            </li>
+                            
                             <li class="tab-link row">
                                 <div class="row">
                                     <img src="<?php echo base_url() ?>front/assets/images/arpita_100.jpg" class="img-thumbnail img-fluid" style="float: left;">

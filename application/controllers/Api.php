@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1);
+
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 
@@ -34,7 +34,7 @@ class Api extends CI_Controller {
 //        $request = file_get_contents('php://input');
 //        $data = json_decode($request, true);
         $data = $_POST;
-//        print_r($data);exit;
+       // print_r($_FILES);exit;
         switch ($data['action']) {
             case 'login':
                 $result = $this->login($data['data']);
@@ -85,7 +85,15 @@ class Api extends CI_Controller {
 //                print_r($_FILES);exit;
                 $result = $this->change_profile($_FILES, $_POST);
                 break;
-
+            case 'update_profile':
+    //           print_r($_FILES);exit;
+                $result = $this->update_profile($_POST);
+                break;
+            case 'deletePost':
+              // print_r($_POST);exit;
+                $result = $this->deletePost($_POST['data']);
+                break;
+   
             default:
                 break;
         }
@@ -141,6 +149,32 @@ class Api extends CI_Controller {
             $response['error'] = "User Id or Password missing.";
         }
         return $response;
+    }
+    
+    function update_profile($data){
+        // print_r($data);exit;
+        if ($data['FirstName'] == '')
+            throw new Exception('First Name can not be empty');
+        $artist_data = array(
+            'FirstName' => isset($data['FirstName']) && $data['FirstName'] ? $data['FirstName'] : '',
+            'LastName' => isset($data['LastName']) && $data['LastName'] ? $data['LastName'] : '',
+            'Email' => isset($data['Email']) && $data['Email'] ? $data['Email'] : '',
+            'City' => isset($data['City']) && $data['City'] ? $data['City'] : '',
+            'State' => isset($data['State']) && $data['State'] ? $data['State'] : '',
+            'Country' => isset($data['Country']) && $data['Country'] ? $data['Country'] : '',
+            'DOB' => isset($data['DOB']) && $data['DOB'] ? date('Y-m-d', strtotime($data['DOB'])) : '',
+        );
+        $result = $this->User_model->update_data($artist_data, array('UID' => $data['userid']));
+        if ($result) {
+            $response['success'] = true;
+            $response['alert_msg'] = "User Updated";
+            $user_data = $this->User_model->get_single($result);
+            $response['user_data'] = $user_data[0];
+        } else {
+            $response['success'] = false;
+            $response['alert_msg'] = "User not Updated";
+        }
+        return $response;        
     }
 
     function add($data) {
@@ -213,7 +247,8 @@ class Api extends CI_Controller {
                 if ($result) {
                     $response['success'] = true;
                     $response['msg'] = "User added";
-                    $response['user_data'] = $this->User_model->get_single($result);
+                    $user_data = $this->User_model->get_single($result);
+                    $response['user_data'] = $user_data[0];
                 } else {
                     $response['success'] = false;
                     $response['msg'] = "User not added";
@@ -240,6 +275,7 @@ class Api extends CI_Controller {
     public function get_posts($postData) {
         $response = array();
         $comments = array();
+        $songs = array();
         try {
             $formdata = $postData;
             $limit = isset($formdata['limit']) && $formdata['limit'] ? $formdata['limit'] : NULL;
@@ -251,7 +287,7 @@ class Api extends CI_Controller {
             );
             $comments = $this->Comment_model->get_data($conditions, $limit, $offset);
             $song_limit = 5 - count($comments);
-            $songs = $this->Songs_model->get($conditions_song, $song_limit, $offset_song);
+//            $songs = $this->Songs_model->get($conditions_song, $song_limit, $offset_song);
             $session_user_id = $formdata['user_id'];
             $i = 0;
             if (is_array($comments) && !empty($comments)) {
@@ -307,7 +343,9 @@ class Api extends CI_Controller {
     function get_single_video($vidData) {
         $song_id = $vidData['songId'];
         $user_id = $vidData['user_id'];
+       
         $song_data = $this->Home_model->getVideoBySongId($song_id);
+//          print_r($song_data);exit;
         $song_data[0]['created_On'] = date('M d, Y', strtotime($songs_data[0]['created_On']));
         $result = $this->Comment_model->getResponse($song_data[0]['ID'], $user_id);
         $song_data[0]['user_response'] = (int) $result[0]['response_type'];
@@ -321,13 +359,13 @@ class Api extends CI_Controller {
                 $resultCommentUserResponse = $this->Comment_model->getResponse($value['COM_ID'], $user_id);
                 $comments[$key]['user_response'] = (int) $resultCommentUserResponse[0]['response_type'];
                 $comments[$key]['total_likes'] = $this->Comment_model->get_total_like(array($value['COM_ID']), 1);
-                $comments[$key]['total_dislikes'] = $this->Comment_model->get_total_dislike(array($value['COM_ID']), 2);
+                // $comments[$key]['total_dislikes'] = $this->Comment_model->get_total_dislike(array($value['COM_ID']), 2);
 
                 $comments[$key]['attachment'] = $this->Comment_model->getAttachment(array('comment_id' => $value['COM_ID']));
                 $comments[$key]['subComments'] = $this->Comment_model->get_data(array('parent_id' => $value['COM_ID']), 2, 0, 'DESC');
             }
         }
-
+//        print_r($song_data);exit;
         $allVideos = $this->Home_model->get_video();
         $artistAllVideo = $this->Home_model->get_artist_video($song_data[0]['UID'], $song_data[0]['ID']);
         $data['songs_data'] = $song_data[0];
@@ -609,6 +647,8 @@ class Api extends CI_Controller {
         $filename = explode('.', $name);
 //        print_r($filename);exit;
 //            $uploaddir = ROOT_DIR . 'community/uploads/';
+        $fileType = $file['type'];
+        print_r($fileType);exit;
         if ($file['type'] == 'image/jpeg' || $file['type'] == 'image/png' || $file['type'] == 'image/gif') {
             $type = 'images';
             $uploadfile = $imageUploadPath . '/' . $date . $name;
@@ -704,6 +744,18 @@ class Api extends CI_Controller {
         } else {
             $response['success'] = FALSE;
             $response['error'] = 'Failed to upload file please try again later';
+        }
+        return $response;
+    }
+
+    function deletePost($data){
+        $deleteResult = $this->Comment_model->deletePost($data['COM_ID']);
+        if($deleteResult){
+            $response['success'] = true;
+            $response['msg'] = 'Post Deleted';
+        }else{
+            $response['success'] = FALSE;
+            $response['error'] = 'failed to delete please try again later';
         }
         return $response;
     }

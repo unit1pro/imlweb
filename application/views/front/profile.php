@@ -18,27 +18,47 @@
                     <ul class="list-group">
                         <li class="list-group-item text-muted" contenteditable="false">Profile 
                             <?php if ($_SESSION['user_data']['UID'] == $profile_data[0]['UID']) { ?>
-                                <span id="profile_update_button" class="pull-right fa fa-pencil-square-o"> Update</span></li>                            
+                                <a id="profile_update_button" class="pull-right "><i class="fa fa-pencil-square-o"></i> Update</a></li>                            
                         <?php } ?>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Full name</strong></span><?php echo $profile_data[0]['FirstName'] . ' ' . $profile_data[0]['LastName']; ?></li>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Date of Birth </strong></span><?php echo $profile_data[0]['DOB']; ?></li>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span><?php echo $profile_data[0]['DateJoined']; ?></li>
+                        <?php if (isset($profile_data[0]['FirstName']) && $profile_data[0]['FirstName'] != '') { ?>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Full name</strong></span><?php echo $profile_data[0]['FirstName'] . ' ' . $profile_data[0]['LastName']; ?></li>
+                        <?php
+                        }
+                        if (isset($profile_data[0]['DOB']) && $profile_data[0]['DOB'] != '') {
+                            ?>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Date of Birth </strong></span><?php echo $profile_data[0]['DOB']; ?></li>
+                        <?php
+                        }
+                        if (isset($profile_data[0]['DateJoined']) && $profile_data[0]['DateJoined'] != '') {
+                            ?>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span><?php echo $profile_data[0]['DateJoined']; ?></li>
+<?php } ?>
                     </ul>
                 </div>
 
-                <?php if (isset($profile_data[0]['Website']) && !empty($profile_data[0]['Website'])) { ?>
+<?php if (isset($profile_data[0]['Website']) && !empty($profile_data[0]['Website'])) { ?>
                     <div class="panel panel-default">
                         <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
                         <div class="panel-body"><a href="<?php echo prep_url($profile_data[0]['Website']); ?>" target="_blank" class=""><?php echo $profile_data[0]['Website']; ?></a></div>
                     </div>
-                <?php } ?>
+<?php } ?>
 
                 <div class="panel panel-default">
                     <ul class="list-group">
                         <li class="list-group-item text-muted">Contact <i class="fa fa-dashboard fa-1x"></i></li>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Mobile</strong></span><?php echo $profile_data[0]['ContactMe']; ?></li>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email</strong></span><?php echo $profile_data[0]['Email']; ?></li>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Address</strong></span><?php echo $profile_data[0]['City'] . ' ' . $profile_data[0]['State'] . ' ' . $profile_data[0]['Country']; ?></li>
+                        <?php if (isset($profile_data[0]['ContactMe']) && $profile_data[0]['ContactMe'] != '') { ?>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Mobile</strong></span><?php echo $profile_data[0]['ContactMe']; ?></li>
+                        <?php
+                        }
+                        if (isset($profile_data[0]['Email']) && $profile_data[0]['Email'] != '') {
+                            ?>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email</strong></span><?php echo $profile_data[0]['Email']; ?></li>
+                        <?php
+                            }
+                            if (isset($profile_data[0]['City']) && $profile_data[0]['City'] != '') {
+                                ?>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Address</strong></span><?php echo $profile_data[0]['City'] . ' ' . $profile_data[0]['State'] . ' ' . $profile_data[0]['Country']; ?></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -48,8 +68,14 @@
                     <div class="panel-heading"><?php echo $profile_data[0]['UserName']; ?>'s Bio</div>
                     <div class="panel-body"><?php echo (isset($profile_data[0]['AboutMe']) && !empty($profile_data[0]['AboutMe'])) ? $profile_data[0]['AboutMe'] : 'About Not Found!!!'; ?>
 
-                        <?php $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? base_url('uploads/images') . '/' . $profile_data[0]['Photo'] : base_url('uploads') . '/images/user.png'; ?>
-                        <img id="profile_pic" src="<?php echo $userImageHeader; ?>" name="photo" class="img-rounded img-responsive pull-right" width="100" height="100" alt="avatar">
+                        <?php
+                        if ($profile_data[0]['fullUrlPhoto']) {
+                            $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? $profile_data[0]['Photo'] : base_url('front') . '/images/user-image.png';
+                        } else {
+                            $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? base_url('uploads/images') . '/' . $profile_data[0]['Photo'] : base_url('front') . '/images/user-image.png';
+                        }
+                        ?>
+                        <img id="profile_pic" src="<?php echo $userImageHeader; ?>" name="photo" class="img-rounded img-responsive pull-right" width="100" height="100" alt="User Image">
                     </div>
                 </div>
                 <div class="panel panel-default target">
@@ -57,7 +83,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-8 col-sm-offset-2 user_post_container">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -70,11 +96,17 @@
 
 
     <!-- left column -->
-    <form id="formdata" action="<?php echo site_url('User/update_profile'); ?>" method="post" class="form-horizontal" enctype="multipart/form-data" role="form" style="display:none">
+    <form id="formdata" action="<?php echo site_url('User/update_profile'); ?>" method="post" class="form-horizontal" enctype="multipart/form-data" role="form" style="display:none;margin:100px 0;">
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="text-center">
-                <?php $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? base_url('uploads/images') . '/' . $profile_data[0]['Photo'] : base_url('front') . '/img/user-image.png'; ?>
-                <img id="profile_pic" src="<?php echo $userImageHeader; ?>" name="photo" class="avatar img-rounded img-thumbnail" alt="avatar">
+                        <?php 
+                        if ($profile_data[0]['fullUrlPhoto']) {
+                            $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? $profile_data[0]['Photo'] : base_url('front') . '/images/user-image.png';
+                        } else {
+                            $userImageHeader = isset($profile_data[0]) && $profile_data[0]['Photo'] != '' ? base_url('uploads/images') . '/' . $profile_data[0]['Photo'] : base_url('front') . '/images/user-image.png';
+                        }
+                        ?>
+                <img id="profile_pic" src="<?php echo $userImageHeader; ?>" name="photo" class="avatar img-rounded img-thumbnail" alt="User Image">
                 <h6>Upload a different photo...</h6>
                 <input type="file" id="upload" name="upload" class="text-center center-block well well-sm">
             </div>
@@ -147,15 +179,15 @@
                 <label class="controls col-md-3 control-label"></label>
                 <div class="col-md-8">
                     <!--<div class="row">-->
-                        <span class="col-sm-4">
-                            <input id="profile_submit" name="update" class="btn btn-primary" value="Save" type="submit"><br>                            
-                        </span>
-                        <span class="col-sm-4">
-                            <input class="btn btn-default" value="Reset" type="reset"><br>                            
-                        </span>
-                        <span class="col-sm-4">
-                            <input id="back_profile" class="btn btn-default" value="Back" type="button">                                                    
-                        </span>
+                    <span class="col-sm-4">
+                        <input id="profile_submit" name="update" class="btn btn-primary" value="Save" type="submit"><br>                            
+                    </span>
+                    <span class="col-sm-4">
+                        <input class="btn btn-default" value="Reset" type="reset"><br>                            
+                    </span>
+                    <span class="col-sm-4">
+                        <input id="back_profile" class="btn btn-default" value="Back" type="button">                                                    
+                    </span>
                     <!--</div>-->                        
                 </div>
             </div>

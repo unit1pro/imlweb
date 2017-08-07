@@ -40,7 +40,7 @@ body{font-size:14px; font-family:ralewayregular;
 .header .userDetails li{float:left; margin-left:10px; display:inline; font-size:13px; color:#fff; font-family:ralewayregular;}
 .header .userDetails li a{color:#fff;}
 .header .userDetails li .profilePic{height:40px;width: 40px; border-radius:50%;}
-.left-panel{width:100%; background:#8a9499; border-radius:10px 10px 10px 10px; float:left; min-height:600px; padding:50px 10px 20px 15px;}
+.left-panel{width:100%; background:#8a9499; border-radius:0 50px 0 0; float:left; min-height:600px; padding:50px 10px 20px 15px;}
 .left-panel .userpic{width:100px; height:100px; float:left; border-radius:50%; }
 .left-panel .userName{width:150px; height:100px; padding-top:40px; float:left;color:#fff; font-size:25px; font-family:ralewaymedium;  }
 
@@ -68,11 +68,12 @@ body{font-size:14px; font-family:ralewayregular;
 .addPost textArea::-webkit-input-placeholder{vertical-align: center;}
 .addPost .addPostBtn{height:30px; width:30px; float:right; border-radius:15px; background:#fc5151; margin-top:6px; box-shadow:0px 1px 2px #000; color:#fff; font-size:35px; line-height:30px; text-align:center; font-family:ralewaymedium;}
 
-.post-item{width:100%; float:left; background:#ccc; padding:15px 0 30px; border-radius:10px; margin-bottom:30px;}
+.post-item{width:100%; float:left; background:#ccc; padding:15px 0 30px; border-radius:30px; margin-bottom:30px;}
 .post-item .postTop{width:100%; float:left; Position:relative; padding:10px;}
 .post-item .postTop .userpic{width:100px; height:100px; float:left;position:absolute; z-index:10; top:0; left:10px; border-radius:50%;}
 .post-item .postTop .postDetails{width:100%; float:left; padding-left:120px;}
-.post-item .postTop .postDetails .name{width:100%; float:left; color:#000; font-size:25px; margin-bottom:10px; line-height:25px; font-family:ralewaysemibold;height: 75px;padding-top: 25px;}
+.post-item .postTop .postDetails .name h6{float:left; color:#000; font-size:25px; margin-bottom:10px; line-height:25px; font-family:ralewaysemibold;width: 100%;height: 50px;padding-top: 25px;}
+.post-item .postTop .postDetails .PostMenu{text-align: right;}
 .post-item .postTop .postDetails .intro{width:100%; float:left; color:#000; font-size:21px; margin-bottom:10px; line-height:21px; font-family:ralewaymedium;}
 .post-item .postTop .postDetails .other{width:100%; float:left; font-size:11px;}
 .post-item .mediaSection{width:100%; float:left; }
@@ -97,9 +98,53 @@ body{font-size:14px; font-family:ralewayregular;
 /*.main-menu-section{padding-left: 0px;padding-right: 0px;}*/
 .main-menu-items {text-align: center;font-family: Helvetica Neue;font-size: 21px;color: #FFFFFF;color: rgb(255, 255, 255) !important;text-decoration: none;width: 14%;}
 .main-menu-items a{color : rgb(255, 255, 255) !important;}
-.post-item p{font-weight: 200;}
-.post-item span{font-weight: 200;}
+.post-item p,.post-item a{font-weight: 300;}
+.post-item span{font-weight: 300;}
+.personal-info label{color:#fff;} 
 
+/* Dropdown Button */
+.dropbtn {
+    color: rgb(0, 0, 0);
+    padding: 16px;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    border:none;
+    
+}
 
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    /*background-color: #3e8e41;*/
+}
 
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 50px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
 

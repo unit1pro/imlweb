@@ -1,5 +1,8 @@
 <?php
 
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET,POST,OPTIONS");
 
@@ -22,6 +25,7 @@ class Community extends CI_Controller {
 
         $data['songs_data'] = $this->Home_model->get_video();
         $data['login_msg'] = $this->session->userdata('login_msg');
+//        $data['user_id'] = $user_id;
         $data['page_title'] = "Home";
         if ($user_id) {
             $data['user_data'] = $this->User_model->get_single($user_id);
@@ -48,10 +52,10 @@ class Community extends CI_Controller {
     }
 
     function uploadFiles() {
-//        exit('hello');
-        $imageUploadPath = UPLOADS . '/images';
-        $videoUploadPath = UPLOADS . '/videos';
-        $audioUploadPath = UPLOADS . '/audios';
+        // exit('hello');
+        $imageUploadPath = './uploads/images';
+        $videoUploadPath = './uploads/videos';
+        $audioUploadPath = './uploads/audios';
         $session_data = $this->session->userdata('user_data');
 //        if ($session_data['UID']) {
         $response = array();
@@ -59,12 +63,12 @@ class Community extends CI_Controller {
         $input = $_FILES["file"]["tmp_name"];
         $name = str_replace(' ', '', basename($_FILES['file']['name']));
         $filename = explode('.', $name);
-//        print_r($filename);exit;
+        // print_r($_FILES);exit;
 //            $uploaddir = ROOT_DIR . 'community/uploads/';
         if ($_FILES['file']['type'] == 'image/jpeg' || $_FILES['file']['type'] == 'image/png' || $_FILES['file']['type'] == 'image/gif') {
             $type = 'images';
             $uploadfile = $imageUploadPath . '/' . $date . $name;
-
+            // print_r($uploadfile);exit;
             if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
                 $response['success'] = TRUE;
                 $response['type'] = $type;
@@ -123,10 +127,17 @@ class Community extends CI_Controller {
         $response = array();
         try {
             $formData = $_POST;
+            // print_r($formData);exit;
+//            var_dump($formData['COMMENTS']);
+//            exit;
             if (!$session_data['UID'])
                 throw new Exception("Session Expired Please Login");
             if ($formData['COMMENTS'] == '' && (!isset($formData['attchment_path'])))
                 throw new Exception("Please write some comment or add a file to submit");
+            if (isset($formData['COMMENTS']) && $formData['COMMENTS'] != '')
+                $formData['COMMENTS']= $this->make_links_blank($formData['COMMENTS']);
+//            print_r($formData['COMMENTS']);
+//            exit;
             $insertData = array(
                 'ID' => $session_data['UID'],
                 'parent_id' => isset($formData['parent_id']) && $formData['parent_id'] ? $formData['parent_id'] : 0,
@@ -168,9 +179,26 @@ class Community extends CI_Controller {
         exit();
     }
 
+    function make_links_blank($text) {
+       return preg_replace('/(http[s]{0,1}\:\/\/\S{4,})\s{0,}/ims', '<a href="$1" target="_blank">$1</a> ', $text);
+    }
+
+//    function callback($match) {
+//        // Prepend http:// if no protocol specified
+//        $completeUrl = $match[1] ? $match[0] : "http://{$match[0]}";
+//
+//        return '<a href="' . $completeUrl . '">'
+//                . $match[2] . $match[3] . $match[4] . '</a>';
+//    }
+
+    function linkify($text) {
+        return preg_replace('#\b(http|ftp)(s)?\://([^ \s\t\r\n]+?)([\s\t\r\n])+#smui', '<a href="$1$2://$3">$1$2://$3</a>$4', $text);
+    }
+
     public function get_posts() {
         $response = array();
         $comments = array();
+        $songs = array();
         try {
             $formdata = $_POST;
             $limit = isset($formdata['limit']) && $formdata['limit'] ? $formdata['limit'] : NULL;
@@ -182,7 +210,7 @@ class Community extends CI_Controller {
             );
             $comments = $this->Comment_model->get_data($conditions, $limit, $offset);
             $song_limit = 5 - count($comments);
-            $songs = $this->Songs_model->get($conditions_song, $song_limit, $offset_song);
+            // $songs = $this->Songs_model->get($conditions_song, $song_limit, $offset_song);
             $session_user_id = $_SESSION['user_data']['UID'];
             $i = 0;
             if (is_array($comments) && !empty($comments)) {
@@ -234,6 +262,7 @@ class Community extends CI_Controller {
         echo json_encode($response);
         exit();
     }
+
     public function get_posts_by_user() {
         $response = array();
         $comments = array();
@@ -246,11 +275,11 @@ class Community extends CI_Controller {
             $conditions_song = array('songs.isActive' => 1);
             $conditions = array(
                 'parent_id' => 0,
-                'ID'=>$uid
+                'ID' => $uid
             );
             $comments = $this->Comment_model->get_data($conditions, $limit, $offset);
 //            print_r($comments);exit;
-            
+
             $session_user_id = $_SESSION['user_data']['UID'];
             $i = 0;
             if (is_array($comments) && !empty($comments)) {
@@ -518,6 +547,25 @@ class Community extends CI_Controller {
         // }
         $data['page'] = "sharer";
         $this->load->view('front/page', $data);
-    } 
+    }
+    
+    public function delete_post() {
+        $response = array();
+        $data = $_POST;
+        $post = $this->Comment_model->get_post_by_Id($data['postId']);
+        $session_data = $this->session->userdata('user_data');
+        $user_id = $session_data['UID'];
+//        print_r($user_id);
+//        print_r($post);exit;
+        if($post[0]['ID']==$user_id){
+            $this->Comment_model->deletePost($post[0]['COM_ID']);
+            $response['success']=true;
+            $response['message'] = "Post Deleted";
+        }else{
+            $response['success']=false;
+            $response['message'] = "Access Denied";
+        }
+        echo json_encode($response);exit;
+    }
 
 }

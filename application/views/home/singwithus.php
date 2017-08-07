@@ -60,6 +60,8 @@
       if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="",e==null || e=="") {
         $('#err_msg').text('Please Enter value');
           $('#myModal').modal('show');
+      }else{
+          $( "#singWithUsForm" ).submit();
       }
   });
 </script>>

@@ -1,5 +1,5 @@
 <?php
-
+// ini_set('display_errors', 1);
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET,POST,OPTIONS");
 
@@ -9,7 +9,7 @@ class SingWithUs extends CI_Controller {
         parent::__construct();
         $this->load->model('User_model');
         $this->load->model('SingWithUs_model');
-        $this->load->helper('url');
+        // $this->load->helper('url');
 //        $this->load->library('session');
     }
 
@@ -30,9 +30,9 @@ class SingWithUs extends CI_Controller {
 
     function insert_data() {
         $form_data = $_POST;
-//        print_r($form_data);
+        // print_r($form_data);
         try {
-//        print_r($_FILES['attachment']);
+        // print_r($_FILES['attachment']);
             if (!isset($_FILES['attachment']['error']) || is_array($_FILES['attachment']['error'])) {
                 throw new RuntimeException('Invalid parameters.');
             }
@@ -60,13 +60,15 @@ class SingWithUs extends CI_Controller {
                 'avi' => 'video/msvideo',
                 'avi' => 'video/avi',
                 'avi' => 'application/x-troff-msvideo',
-                'mp3' => 'audio/mpeg3',
-                'mp3' => 'audio/x-mpeg-3',
-                'mp3' => 'audio/mpeg',
-                'mp3' => 'audio/x-mpeg'
+                'mp3' => 'audio/mp3'
+               
             );
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            if (false === $ext = array_search($finfo->file($_FILES['attachment']['tmp_name']), $types, true)) {
+            // $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $finfo=$_FILES['attachment']['type'];
+            // print_r();
+            // var_dump($finfo);
+            // var_dump(array_search($finfo, $types));
+            if (false === $ext = array_search($finfo, $types)) {
                 throw new RuntimeException('Invalid file format.');
             }
             
@@ -91,17 +93,18 @@ class SingWithUs extends CI_Controller {
                 $insertResult=0;
                 $insertResult = $this->SingWithUs_model->insert_data($insertData);
                 if ($insertResult!=0) {
-                    
+                    // echo 'done';
                     $this->session->set_userdata('msg', 'Your request has been sent we will contact you soon');
 //                print_r($insertResult);
               
-//                    redirect('SingWithUs/index', 'refresh');
+                    // redirect('SingWithUs/index', 'refresh');
                     $this->index();
                 }
             }
         } catch (RuntimeException $e) {
+            echo $e->getMessage();
             $this->session->set_userdata('msg', $e->getMessage());
-//                    redirect('SingWithUs/index', 'refresh');
+                    // redirect('SingWithUs/index', 'refresh');
                     $this->index();
         }
     }

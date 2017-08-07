@@ -7,11 +7,13 @@
 .form {
   background: rgba(19, 35, 47, 1);
   padding: 40px;
-  max-width: 600px;
+  /*max-width: 600px;*/
   margin: 40px auto;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
+
+.form h1{color:#ffffff;}
 
 .form .tab-group {
   list-style: none;
@@ -154,4 +156,23 @@
 .form .forgot {
   margin-top: -20px;
   text-align: right;
+}
+.form .laginBack {
+  margin-top: -20px;
+  text-align: right;
+}
+.form.forgetPasswordSection {
+    display: none;
+}
+.form .changePassword {
+  
+}
+
+.form .button.fbLogin{
+    background: #0083bb;
+    margin-top: 10px; 
+}
+.form .button.loader{
+    background: #0083bb;
+    margin-top: 10px; 
 }

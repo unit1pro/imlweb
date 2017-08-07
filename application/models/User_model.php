@@ -30,6 +30,19 @@ class User_model extends CI_Model {
         $result = $query->result_array();
         return $result;
     }
+    function check_emails($email) {
+        $sql = "SELECT Email FROM usermain WHERE Email = '$email'";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    function check_userName($email) {
+        $sql = "SELECT Email FROM usermain WHERE Email = '$email'";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
 
     function update_user($user_id, $user_data) {
         $this->db->where('UID', $user_id);
@@ -47,6 +60,7 @@ class User_model extends CI_Model {
     }
     
     function autocheck($data){
+        // print_r($data);exit;
         $sql = "SELECT * FROM usermain WHERE ".$data['key']." = '".$data['value']."'";
 //        print_r($sql);exit;
         $query = $this->db->query($sql);
@@ -87,6 +101,16 @@ class User_model extends CI_Model {
     function delete($id) {
         $this->db->where('UID', $id);
         return $this->db->delete('usermain');
+    }
+    
+    function checkFbUser($email,$fId) {
+        $sql = "SELECT * FROM ".$this->table." WHERE Email = '$email' OR fId = '$fId'";
+        $query = $this->db->query($sql);
+        $result = array();
+        if ($query !== FALSE && $query->num_rows() > 0) {
+            $result = $query->result_array();
+        }
+        return $result;
     }
 
 }
